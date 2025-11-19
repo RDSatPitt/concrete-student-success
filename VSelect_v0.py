@@ -4,218 +4,20 @@ __generated_with = "0.17.7"
 app = marimo.App(width="medium")
 
 
-@app.cell
-def _(
-    age,
-    athlete,
-    credits,
-    distance,
-    efc,
-    epr,
-    extracurricular,
-    firstgen,
-    gender,
-    gpa,
-    housing,
-    legacy,
-    merit,
-    midterms,
-    origins,
-    pell,
-    pell_plus,
-    printer,
-    pronouns,
-    race,
-    residency,
-    sai,
-    scores,
-    transfer,
-    unmet,
-    wi_fi,
-):
-    # #constants_1
-
-
-    variables_by_task = {
-        1: {
-            "variables": [pell, efc, sai, unmet, merit, pell_plus],
-            "header": "Regulatory Gate",
-        },
-        2: {
-            "variables": [race, gender, age, pronouns],
-            "header": "Protected-Attribute Gate",
-        },
-        3: {
-            "variables": [gpa, scores, midterms, epr, printer],
-            "header": "Data-Reliability Gate",
-        },
-        4: {
-            "variables": [legacy, athlete, firstgen, distance, credits, housing, residency, origins, transfer, extracurricular, wi_fi],
-            "header": "Equity & Actionability Gate",
-        },
-    }
-
-    
-    # #     1: {
-    # #         "variables": ["pell", "efc", "sai", "unmet", "merit", "pell_plus"],
-    # #         "header": ""
-    # #     },
-    # #     2: {
-    # #         "variables": ["race", "gender", "age", "pronouns"],
-    # #         "header": "",
-    # #     },
-    # #     3: {
-    # #         "variables": ["gpa", "scores", "midterms", "epr", "printer"],
-    # #         "header": "",
-    # #     },
-    # #     4: {
-    # #         "variables": ['legacy', 
-    # #                       'athlete', 
-    # #                       'firstgen', 
-    # #                       'distance', 
-    # #                       'credits', 
-    # #                       'housing', 
-    # #                       'residency', 
-    # #                       'origins', 
-    # #                       'transfer', 
-    # #                       'extracurricular', 
-    # #                       'wi_fi'
-    # #                      ],
-    # #         "header": "",
-    # #     }
-    # # }
-    return (variables_by_task,)
-
-
-@app.cell
-def _():
-    textbox_text_boilerplate = 'Please briefly justify your reasoning for your'
-    correct = "Right Choice"
-
-    variable_selection_button_labels = {
-        1: {
-            'include': "Include",
-            'exclude': "Exclude",
-            'other': "Flag for Review",
-        }, 
-        2: {
-            'include': 'Include As-Is', 
-            'exclude': 'Exclude Entirely', 
-            'other': 'Keep for Bias-Audit Only'
-        },
-        3: {
-            'include': 'Include as-is', 
-            'exclude': 'Exclude (too unreliable)', 
-            'other': 'Flag for Data-Quality Improvement'
-        },
-        4: {
-            'include': 'Include as-is', 
-            'exclude': 'Exclude (too unreliable)', 
-            'other': 'Flag for Data-Quality Improvement'
-        }
-    }
-    return correct, textbox_text_boilerplate, variable_selection_button_labels
-
-
-@app.cell
-def _(
+@app.cell(hide_code=True)
+def variable_class_definition(
+    button_labels_by_task,
     mo,
-    set_age_final,
-    set_age_initial,
-    set_age_state,
-    set_athlete_final,
-    set_athlete_initial,
-    set_athlete_state,
-    set_credits_final,
-    set_credits_initial,
-    set_credits_state,
-    set_distance_final,
-    set_distance_initial,
-    set_distance_state,
-    set_efc_final,
-    set_efc_initial,
-    set_efc_state,
-    set_epr_final,
-    set_epr_initial,
-    set_epr_state,
-    set_extracurricular_final,
-    set_extracurricular_initial,
-    set_extracurricular_state,
-    set_firstgen_final,
-    set_firstgen_initial,
-    set_firstgen_state,
-    set_gender_final,
-    set_gender_initial,
-    set_gender_state,
-    set_gpa_final,
-    set_gpa_initial,
-    set_gpa_state,
-    set_housing_final,
-    set_housing_initial,
-    set_housing_state,
-    set_legacy_final,
-    set_legacy_initial,
-    set_legacy_state,
-    set_merit_final,
-    set_merit_initial,
-    set_merit_state,
-    set_midterms_final,
-    set_midterms_initial,
-    set_midterms_state,
-    set_origins_final,
-    set_origins_initial,
-    set_origins_state,
-    set_pell_final,
-    set_pell_initial,
-    set_pell_plus_final,
-    set_pell_plus_initial,
-    set_pell_plus_state,
-    set_pell_state,
-    set_printer_final,
-    set_printer_initial,
-    set_printer_state,
-    set_pronoun_final,
-    set_pronoun_initial,
-    set_pronoun_state,
-    set_race_final,
-    set_race_initial,
-    set_race_state,
-    set_residency_final,
-    set_residency_initial,
-    set_residency_state,
-    set_sai_final,
-    set_sai_initial,
-    set_sai_state,
-    set_scores_final,
-    set_scores_initial,
-    set_scores_state,
-    set_transfer_final,
-    set_transfer_initial,
-    set_transfer_state,
-    set_unmet_final,
-    set_unmet_initial,
-    set_unmet_state,
-    set_wi_fi_final,
-    set_wi_fi_initial,
-    set_wi_fi_state,
     textbox_text_boilerplate,
     variable_details,
-    variable_selection_button_labels,
 ):
-    def handler(obj, value): 
+    def variable_button_handler(obj, value): 
         setter = obj.state
         initial_feedback = obj.initial_feedback_setter
         final_feedback = obj.final_feedback_setter
         setter(value)
         initial_feedback(retrieve_variable_details(obj, *['feedback', 'initial', value]))
         final_feedback(retrieve_variable_details(obj, *['feedback', 'final', value]))
-        # setter = setters[obj]['set_state']
-        # initial_feedback = setters[obj]['set_initial']
-        # final_feedback = setters[obj]['set_final']
-        # initial_feedback_text = retrieve_variable_details(obj, *['feedback', 'initial', value])
-        # initial_feedback(initial_feedback_text)
-        # final_feedback_text = retrieve_variable_details(obj, *['feedback', 'final', value])
-        # final_feedback(final_feedback_text)
 
 
     def retrieve_variable_details(obj, *args): 
@@ -226,465 +28,924 @@ def _(
 
 
     class Variable:
-        def __init__(self, name:str, task:int, state_setter, initial_feedback_setter, final_feedback_setter):
+        def __init__(self, name:str, task:int, state_setter, initial_feedback_setter, final_feedback_setter, text_state_setter):
             self.name = name
             self.task = task
             self.title = retrieve_variable_details(self, 'title')
             self.definition = retrieve_variable_details(self, 'def')
             self.state = state_setter
+            self.text_state = text_state_setter
             self.initial_feedback_setter = initial_feedback_setter
             self.final_feedback_setter = final_feedback_setter
-            self.incl = mo.ui.run_button(label=variable_selection_button_labels[self.task]['include'], 
+            self.incl = mo.ui.run_button(label=button_labels_by_task[self.task]['include'], 
                                          kind='success', 
-                                         on_change=lambda _: handler(self, 'include')
+                                         on_change=lambda _: variable_button_handler(self, 'include')
                                         )
-            self.excl = mo.ui.run_button(label=variable_selection_button_labels[self.task]['exclude'], 
+            self.excl = mo.ui.run_button(label=button_labels_by_task[self.task]['exclude'], 
                                          kind='danger', 
-                                         on_change=lambda _: handler(self, 'exclude')
+                                         on_change=lambda _: variable_button_handler(self, 'exclude')
                                         )
-            self.flag = mo.ui.run_button(label=variable_selection_button_labels[self.task]['other'], 
+            self.flag = mo.ui.run_button(label=button_labels_by_task[self.task]['flag'], 
                                          kind='warn', 
-                                         on_change=lambda _: handler(self, 'other')
+                                         on_change=lambda _: variable_button_handler(self, 'flag')
                                         )
-            self.text = mo.ui.text_area(label=f"{textbox_text_boilerplate} {self.title} choice.", rows=4)
-            self.initial_feedback = None
-            self.final_feedback = None
+            self.text = mo.ui.text_area(label=f"{textbox_text_boilerplate} {self.title} choice.", 
+                                        rows=4,
+                                       )
+
 
         def get_initial_feedback(self, dict): 
             return dict[self]['initial']
-    
-        def getter(self): 
-            return dict[self]['state']
+    return (Variable,)
 
 
-    pell = Variable('pell', 1, set_pell_state, set_pell_initial, set_pell_final)
-    efc = Variable('efc', 1, set_efc_state, set_efc_initial, set_efc_final)
-    sai = Variable('sai', 1, set_sai_state, set_sai_initial, set_sai_final)
-    unmet = Variable('unmet', 1, set_unmet_state, set_unmet_initial, set_unmet_final)
-    merit = Variable('merit', 1, set_merit_state, set_merit_initial, set_merit_final)
-    pell_plus = Variable('pell_plus', 1, set_pell_plus_state, set_pell_plus_initial, set_pell_plus_final)
-    race = Variable("race", 2, set_race_state, set_race_initial, set_race_final)
-    gender = Variable("gender", 2, set_gender_state, set_gender_initial, set_gender_final) 
-    age = Variable("age", 2, set_age_state, set_age_initial, set_age_final)
-    pronouns = Variable("pronouns", 2, set_pronoun_state, set_pronoun_initial, set_pronoun_final)
-    gpa = Variable("gpa", 3, set_gpa_state, set_gpa_initial, set_gpa_final)
-    scores = Variable("scores", 3, set_scores_state, set_scores_initial, set_scores_final)
-    midterms = Variable("midterms", 3, set_midterms_state, set_midterms_initial, set_midterms_final)
-    epr = Variable("epr", 3, set_epr_state, set_epr_initial, set_epr_final)
-    printer = Variable("printer", 3, set_printer_state, set_printer_initial, set_printer_final)
-    legacy=Variable('legacy', 4, set_legacy_state, set_legacy_initial, set_legacy_final)
-    athlete=Variable('athlete', 4, set_athlete_state, set_athlete_initial, set_athlete_final)
-    firstgen = Variable('firstgen', 4, set_firstgen_state, set_firstgen_initial, set_firstgen_final)
-    distance = Variable('distance', 4, set_distance_state, set_distance_initial, set_distance_final) 
-    credits=Variable('credits', 4, set_credits_state, set_credits_initial, set_credits_final)
-    housing=Variable('housing', 4, set_housing_state, set_housing_initial, set_housing_final)
-    residency=Variable('residency', 4, set_residency_state, set_residency_initial, set_residency_final) 
-    origins=Variable('origins', 4, set_origins_state, set_origins_initial, set_origins_final)
-    transfer=Variable('transfer', 4, set_transfer_state, set_transfer_initial, set_transfer_final) 
-    extracurricular=Variable('extracurricular', 4, set_extracurricular_state, set_extracurricular_initial, set_extracurricular_final)
-    wi_fi=Variable('wi_fi', 4, set_wi_fi_state, set_wi_fi_initial, set_wi_fi_final)
+@app.cell(hide_code=True)
+def task_1_variable_instantiation(
+    Variable,
+    set_efc_final,
+    set_efc_initial,
+    set_efc_state,
+    set_efc_text,
+    set_merit_final,
+    set_merit_initial,
+    set_merit_state,
+    set_merit_text,
+    set_pell_final,
+    set_pell_initial,
+    set_pell_plus_final,
+    set_pell_plus_initial,
+    set_pell_plus_state,
+    set_pell_plus_text,
+    set_pell_state,
+    set_pell_text,
+    set_sai_final,
+    set_sai_initial,
+    set_sai_state,
+    set_sai_text,
+    set_unmet_final,
+    set_unmet_initial,
+    set_unmet_state,
+    set_unmet_text,
+):
+    pell = Variable('pell', 1, set_pell_state, set_pell_initial, set_pell_final, set_pell_text)
+    efc = Variable('efc', 1, set_efc_state, set_efc_initial, set_efc_final, set_efc_text)
+    sai = Variable('sai', 1, set_sai_state, set_sai_initial, set_sai_final, set_sai_text)
+    unmet = Variable('unmet', 1, set_unmet_state, set_unmet_initial, set_unmet_final, set_unmet_text)
+    merit = Variable('merit', 1, set_merit_state, set_merit_initial, set_merit_final, set_merit_text)
+    pell_plus = Variable('pell_plus', 1, set_pell_plus_state, set_pell_plus_initial, set_pell_plus_final, set_pell_plus_text)
+    return efc, merit, pell, pell_plus, sai, unmet
 
 
-    # setters = {
-    #     pell: {'set_state': set_pell_state, 
-    #            'set_initial': set_pell_initial,
-    #            'set_final': set_pell_final,
-    #           },
-    #     efc: {'set_state': set_efc_state, 
-    #           'set_initial': set_efc_initial,
-    #           'set_final': set_efc_final,
-    #           }, 
-    #     sai: {'set_state': set_sai_state,
-    #           'set_initial': set_sai_initial,
-    #           'set_final': set_sai_final,
-    #          },
-    #     unmet: {'set_state': set_unmet_state,
-    #           'set_initial': set_unmet_initial,
-    #           'set_final': set_unmet_final,
-    #          },
-    #     merit: {'set_state': set_merit_state,
-    #           'set_initial': set_merit_initial,
-    #           'set_final': set_merit_final,
-    #          },
-    #     pell_plus: {'set_state': set_pell_plus_state,
-    #           'set_initial': set_pell_plus_initial,
-    #           'set_final': set_pell_plus_final,
-    #          },
-    #     race: {
-    #         'state': set_race_state,
-    #         'initial': set_race_initial,
-    #         'final': set_race_final,
-    #     },
-    #     age: {
-    #         'state': set_age_state,
-    #         'initial': set_age_initial,
-    #         'final': set_age_final,
-    #     },
-    #     gender: {
-    #         'state': set_gender_state,
-    #         'initial': set_gender_initial,
-    #         'final': set_gender_final,
-    #     },
-    #     pronouns: {
-    #         'state': set_pronoun_state,
-    #         'initial': set_pronoun_initial,
-    #         'final': set_pronoun_final,
-    #     },
-    # 	gpa: {
-    # 		'state': set_gpa_state,
-    # 		'initial': set_gpa_initial,
-    # 		'final': set_gpa_final,
-    # 	},
-    # 	scores: {
-    # 		'state': set_scores_state,
-    # 		'initial': set_scores_initial,
-    # 		'final': set_scores_final,
-    # 	},
-    # 	midterms: {
-    # 		'state': set_midterms_state,
-    # 		'initial': set_midterms_initial,
-    # 		'final': set_midterms_final,
-    # 	},
-    # 	epr: {
-    # 		'state': set_epr_state,
-    # 		'initial': set_epr_initial,
-    # 		'final': set_epr_final,
-    # 	},
-    # 	printer: {
-    # 		'state': set_printer_state,
-    # 		'initial': set_printer_initial,
-    # 		'final': set_printer_final,
-    # 	},
-    # 	legacy: {
-    # 		'state': set_legacy_state,
-    # 		'initial': set_legacy_initial,
-    # 		'final': set_legacy_final,
-    # 	},
-    # 	athlete: {
-    # 		'state': set_athlete_state,
-    # 		'initial': set_athlete_initial,
-    # 		'final': set_athlete_final,
-    # 	},
-    # 	firstgen: {
-    # 		'state': set_firstgen_state,
-    # 		'initial': set_firstgen_initial,
-    # 		'final': set_firstgen_final,
-    # 	},
-    # 	distance: {
-    # 		'state': set_distance_state,
-    # 		'initial': set_distance_initial,
-    # 		'final': set_distance_final,
-    # 	},
-    # 	credits: {
-    # 		'state': set_credits_state,
-    # 		'initial': set_credits_initial,
-    # 		'final': set_credits_final,
-    # 	},
-    # 	housing: {
-    # 		'state': set_housing_state,
-    # 		'initial': set_housing_initial,
-    # 		'final': set_housing_final,
-    # 	},
-    # 	residency: {
-    # 		'state': set_residency_state,
-    # 		'initial': set_residency_initial,
-    # 		'final': set_residency_final,
-    # 	},
-    # 	origins: {
-    # 		'state': set_origins_state,
-    # 		'initial': set_origins_initial,
-    # 		'final': set_origins_final,
-    # 	},
-    # 	transfer: {
-    # 		'state': set_transfer_state,
-    # 		'initial': set_transfer_initial,
-    # 		'final': set_transfer_final,
-    # 	},
-    # 	extracurricular: {
-    # 		'state': set_extracurricular_state,
-    # 		'initial': set_extracurricular_initial,
-    # 		'final': set_extracurricular_final,
-    # 	},
-    # 	wi_fi: {
-    # 		'state': set_wi_fi_state,
-    # 		'initial': set_wi_fi_initial,
-    # 		'final': set_wi_fi_final,
-    # 	},
-    # }
+@app.cell(hide_code=True)
+def task_2_variable_instantiation(
+    Variable,
+    set_age_final,
+    set_age_initial,
+    set_age_state,
+    set_age_text,
+    set_gender_final,
+    set_gender_initial,
+    set_gender_state,
+    set_gender_text,
+    set_pronoun_final,
+    set_pronoun_initial,
+    set_pronoun_state,
+    set_pronoun_text,
+    set_race_final,
+    set_race_initial,
+    set_race_state,
+    set_race_text,
+):
+    race = Variable("race", 2, set_race_state, set_race_initial, set_race_final, set_race_text)
+    gender = Variable("gender", 2, set_gender_state, set_gender_initial, set_gender_final, set_gender_text) 
+    age = Variable("age", 2, set_age_state, set_age_initial, set_age_final, set_age_text)
+    pronouns = Variable("pronouns", 2, set_pronoun_state, set_pronoun_initial, set_pronoun_final, set_pronoun_text)
+    return age, gender, pronouns, race
+
+
+@app.cell(hide_code=True)
+def task_3_variable_instantiation(
+    Variable,
+    set_epr_final,
+    set_epr_initial,
+    set_epr_state,
+    set_epr_text,
+    set_gpa_final,
+    set_gpa_initial,
+    set_gpa_state,
+    set_gpa_text,
+    set_midterms_final,
+    set_midterms_initial,
+    set_midterms_state,
+    set_midterms_text,
+    set_printer_final,
+    set_printer_initial,
+    set_printer_state,
+    set_printer_text,
+    set_scores_final,
+    set_scores_initial,
+    set_scores_state,
+    set_scores_text,
+):
+    gpa = Variable("gpa", 3, set_gpa_state, set_gpa_initial, set_gpa_final, set_gpa_text)
+    scores = Variable("scores", 3, set_scores_state, set_scores_initial, set_scores_final, set_scores_text)
+    midterms = Variable("midterms", 3, set_midterms_state, set_midterms_initial, set_midterms_final, set_midterms_text)
+    epr = Variable("epr", 3, set_epr_state, set_epr_initial, set_epr_final, set_epr_text)
+    printer = Variable("printer", 3, set_printer_state, set_printer_initial, set_printer_final, set_printer_text,)
+    return epr, gpa, midterms, printer, scores
+
+
+@app.cell(hide_code=True)
+def task_4_variable_instantiation(
+    Variable,
+    set_athlete_final,
+    set_athlete_initial,
+    set_athlete_state,
+    set_athlete_text,
+    set_credits_final,
+    set_credits_initial,
+    set_credits_state,
+    set_credits_text,
+    set_distance_final,
+    set_distance_initial,
+    set_distance_state,
+    set_distance_text,
+    set_extracurricular_final,
+    set_extracurricular_initial,
+    set_extracurricular_state,
+    set_extracurricular_text,
+    set_firstgen_final,
+    set_firstgen_initial,
+    set_firstgen_state,
+    set_firstgen_text,
+    set_housing_final,
+    set_housing_initial,
+    set_housing_state,
+    set_housing_text,
+    set_legacy_final,
+    set_legacy_initial,
+    set_legacy_state,
+    set_legacy_text,
+    set_origins_final,
+    set_origins_initial,
+    set_origins_state,
+    set_origins_text,
+    set_residency_final,
+    set_residency_initial,
+    set_residency_state,
+    set_residency_text,
+    set_transfer_final,
+    set_transfer_initial,
+    set_transfer_state,
+    set_transfer_text,
+    set_wi_fi_final,
+    set_wi_fi_initial,
+    set_wi_fi_state,
+    set_wi_fi_text,
+):
+    legacy=Variable('legacy', 4, set_legacy_state, set_legacy_initial, set_legacy_final, set_legacy_text)
+    athlete=Variable('athlete', 4, set_athlete_state, set_athlete_initial, set_athlete_final, set_athlete_text)
+    firstgen = Variable('firstgen', 4, set_firstgen_state, set_firstgen_initial, set_firstgen_final, set_firstgen_text)
+    distance = Variable('distance', 4, set_distance_state, set_distance_initial, set_distance_final, set_distance_text) 
+    credits=Variable('credits', 4, set_credits_state, set_credits_initial, set_credits_final, set_credits_text)
+    housing=Variable('housing', 4, set_housing_state, set_housing_initial, set_housing_final, set_housing_text)
+    residency=Variable('residency', 4, set_residency_state, set_residency_initial, set_residency_final, set_residency_text) 
+    origins=Variable('origins', 4, set_origins_state, set_origins_initial, set_origins_final, set_origins_text)
+    transfer=Variable('transfer', 4, set_transfer_state, set_transfer_initial, set_transfer_final, set_transfer_text) 
+    extracurricular=Variable('extracurricular', 
+                             4, 
+                             set_extracurricular_state, 
+                             set_extracurricular_initial, 
+                             set_extracurricular_final, 
+                             set_extracurricular_text
+                            )
+    wi_fi=Variable('wi_fi', 4, set_wi_fi_state, set_wi_fi_initial, set_wi_fi_final, set_wi_fi_text)
     return (
-        age,
         athlete,
         credits,
         distance,
-        efc,
-        epr,
         extracurricular,
         firstgen,
-        gender,
-        gpa,
         housing,
         legacy,
-        merit,
-        midterms,
         origins,
-        pell,
-        pell_plus,
-        printer,
-        pronouns,
-        race,
         residency,
-        sai,
-        scores,
         transfer,
-        unmet,
         wi_fi,
     )
 
 
-@app.cell
-def _(
-    age,
-    athlete,
-    credits,
-    distance,
+@app.cell(hide_code=True)
+def reactive_elements_and_states(mo):
+    #task 1 getters and setters
+    #pell
+    get_pell_state, set_pell_state = mo.state(None)
+    get_pell_initial, set_pell_initial = mo.state(None)
+    get_pell_final, set_pell_final = mo.state(None)
+    get_pell_text, set_pell_text = mo.state(None)
+
+    #efc
+    get_efc_state, set_efc_state = mo.state(None)
+    get_efc_initial, set_efc_initial = mo.state(None)
+    get_efc_final, set_efc_final = mo.state(None)
+    get_efc_text, set_efc_text = mo.state(None)
+
+    #sai
+    get_sai_state, set_sai_state = mo.state(None)
+    get_sai_initial, set_sai_initial = mo.state(None)
+    get_sai_final, set_sai_final = mo.state(None)
+    get_sai_text, set_sai_text = mo.state(None)
+
+    #unmet
+    get_unmet_state, set_unmet_state = mo.state(None)
+    get_unmet_initial, set_unmet_initial = mo.state(None)
+    get_unmet_final, set_unmet_final = mo.state(None)
+    get_unmet_text, set_unmet_text = mo.state(None)
+
+    #merit
+    get_merit_state, set_merit_state = mo.state(None)
+    get_merit_initial, set_merit_initial = mo.state(None)
+    get_merit_final, set_merit_final = mo.state(None)
+    get_merit_text, set_merit_text = mo.state(None)
+
+    #pell_plus
+    get_pell_plus_state, set_pell_plus_state = mo.state(None)
+    get_pell_plus_initial, set_pell_plus_initial = mo.state(None)
+    get_pell_plus_final, set_pell_plus_final = mo.state(None)
+    get_pell_plus_text, set_pell_plus_text = mo.state(None)
+
+
+
+    #task 2 getters and setters
+    #race
+    get_race_state, set_race_state = mo.state(None)
+    get_race_initial, set_race_initial = mo.state(None)
+    get_race_final, set_race_final = mo.state(None)
+    get_race_text, set_race_text = mo.state(None)
+
+    #gender
+    get_gender_state, set_gender_state = mo.state(None)
+    get_gender_initial, set_gender_initial = mo.state(None)
+    get_gender_final, set_gender_final = mo.state(None)
+    get_gender_text, set_gender_text = mo.state(None)
+
+    #age
+    get_age_state, set_age_state = mo.state(None)
+    get_age_initial, set_age_initial = mo.state(None)
+    get_age_final, set_age_final = mo.state(None)
+    get_age_text, set_age_text = mo.state(None)
+
+    #pronouns
+    get_pronoun_state, set_pronoun_state = mo.state(None)
+    get_pronoun_initial, set_pronoun_initial = mo.state(None)
+    get_pronoun_final, set_pronoun_final = mo.state(None)
+    get_pronoun_text, set_pronoun_text = mo.state(None)
+
+
+    #task_3 getters and setters
+
+    #gpa
+    get_gpa_state, set_gpa_state = mo.state(None)
+    get_gpa_initial, set_gpa_initial = mo.state(None)
+    get_gpa_final, set_gpa_final = mo.state(None)
+    get_gpa_text, set_gpa_text = mo.state(None)
+
+    #scores
+    get_scores_state, set_scores_state = mo.state(None)
+    get_scores_initial, set_scores_initial = mo.state(None)
+    get_scores_final, set_scores_final = mo.state(None)
+    get_scores_text, set_scores_text = mo.state(None)
+
+    #midterms
+    get_midterms_state, set_midterms_state = mo.state(None)
+    get_midterms_initial, set_midterms_initial = mo.state(None)
+    get_midterms_final, set_midterms_final = mo.state(None)
+    get_midterms_text, set_midterms_text = mo.state(None)
+
+    #epr
+    get_epr_state, set_epr_state = mo.state(None)
+    get_epr_initial, set_epr_initial = mo.state(None)
+    get_epr_final, set_epr_final = mo.state(None)
+    get_epr_text, set_epr_text = mo.state(None)
+
+    #printer
+    get_printer_state, set_printer_state = mo.state(None)
+    get_printer_initial, set_printer_initial = mo.state(None)
+    get_printer_final, set_printer_final = mo.state(None)
+    get_printer_text, set_printer_text = mo.state(None)
+
+    #task_4 getters_and_setters
+    #legacy
+    get_legacy_state, set_legacy_state = mo.state(None)
+    get_legacy_initial, set_legacy_initial = mo.state(None)
+    get_legacy_final, set_legacy_final = mo.state(None)
+    get_legacy_text, set_legacy_text = mo.state(None)
+
+    #athlete
+    get_athlete_state, set_athlete_state = mo.state(None)
+    get_athlete_initial, set_athlete_initial = mo.state(None)
+    get_athlete_final, set_athlete_final = mo.state(None)
+    get_athlete_text, set_athlete_text = mo.state(None)
+
+    #firstgen
+    get_firstgen_state, set_firstgen_state = mo.state(None)
+    get_firstgen_initial, set_firstgen_initial = mo.state(None)
+    get_firstgen_final, set_firstgen_final = mo.state(None)
+    get_firstgen_text, set_firstgen_text = mo.state(None)
+
+    #distance
+    get_distance_state, set_distance_state = mo.state(None)
+    get_distance_initial, set_distance_initial = mo.state(None)
+    get_distance_final, set_distance_final = mo.state(None)
+    get_distance_text, set_distance_text = mo.state(None)
+
+    #credits
+    get_credits_state, set_credits_state = mo.state(None)
+    get_credits_initial, set_credits_initial = mo.state(None)
+    get_credits_final, set_credits_final = mo.state(None)
+    get_credits_text, set_credits_text = mo.state(None)
+
+    #housing
+    get_housing_state, set_housing_state = mo.state(None)
+    get_housing_initial, set_housing_initial = mo.state(None)
+    get_housing_final, set_housing_final = mo.state(None)
+    get_housing_text, set_housing_text = mo.state(None)
+
+    #residency
+    get_residency_state, set_residency_state = mo.state(None)
+    get_residency_initial, set_residency_initial = mo.state(None)
+    get_residency_final, set_residency_final = mo.state(None)
+    get_residency_text, set_residency_text = mo.state(None)
+
+    #origins
+    get_origins_state, set_origins_state = mo.state(None)
+    get_origins_initial, set_origins_initial = mo.state(None)
+    get_origins_final, set_origins_final = mo.state(None)
+    get_origins_text, set_origins_text = mo.state(None)
+
+    #transfer
+    get_transfer_state, set_transfer_state = mo.state(None)
+    get_transfer_initial, set_transfer_initial = mo.state(None)
+    get_transfer_final, set_transfer_final = mo.state(None)
+    get_transfer_text, set_transfer_text = mo.state(None)
+
+    #extracurricular
+    get_extracurricular_state, set_extracurricular_state = mo.state(None)
+    get_extracurricular_initial, set_extracurricular_initial = mo.state(None)
+    get_extracurricular_final, set_extracurricular_final = mo.state(None)
+    get_extracurricular_text, set_extracurricular_text = mo.state(None)
+
+    #wi_fi
+    get_wi_fi_state, set_wi_fi_state = mo.state(None)
+    get_wi_fi_initial, set_wi_fi_initial = mo.state(None)
+    get_wi_fi_final, set_wi_fi_final = mo.state(None)
+    get_wi_fi_text, set_wi_fi_text = mo.state(None)
+    return (
+        get_age_final,
+        get_age_initial,
+        get_age_state,
+        get_age_text,
+        get_athlete_final,
+        get_athlete_initial,
+        get_athlete_state,
+        get_athlete_text,
+        get_credits_final,
+        get_credits_initial,
+        get_credits_state,
+        get_credits_text,
+        get_distance_final,
+        get_distance_initial,
+        get_distance_state,
+        get_distance_text,
+        get_efc_final,
+        get_efc_initial,
+        get_efc_state,
+        get_efc_text,
+        get_epr_final,
+        get_epr_initial,
+        get_epr_state,
+        get_epr_text,
+        get_extracurricular_final,
+        get_extracurricular_initial,
+        get_extracurricular_state,
+        get_extracurricular_text,
+        get_firstgen_final,
+        get_firstgen_initial,
+        get_firstgen_state,
+        get_firstgen_text,
+        get_gender_final,
+        get_gender_initial,
+        get_gender_state,
+        get_gender_text,
+        get_gpa_final,
+        get_gpa_initial,
+        get_gpa_state,
+        get_gpa_text,
+        get_housing_final,
+        get_housing_initial,
+        get_housing_state,
+        get_housing_text,
+        get_legacy_final,
+        get_legacy_initial,
+        get_legacy_state,
+        get_legacy_text,
+        get_merit_final,
+        get_merit_initial,
+        get_merit_state,
+        get_merit_text,
+        get_midterms_final,
+        get_midterms_initial,
+        get_midterms_state,
+        get_midterms_text,
+        get_origins_final,
+        get_origins_initial,
+        get_origins_state,
+        get_origins_text,
+        get_pell_final,
+        get_pell_initial,
+        get_pell_plus_final,
+        get_pell_plus_initial,
+        get_pell_plus_state,
+        get_pell_plus_text,
+        get_pell_state,
+        get_pell_text,
+        get_printer_final,
+        get_printer_initial,
+        get_printer_state,
+        get_printer_text,
+        get_pronoun_final,
+        get_pronoun_initial,
+        get_pronoun_state,
+        get_pronoun_text,
+        get_race_final,
+        get_race_initial,
+        get_race_state,
+        get_race_text,
+        get_residency_final,
+        get_residency_initial,
+        get_residency_state,
+        get_residency_text,
+        get_sai_final,
+        get_sai_initial,
+        get_sai_state,
+        get_sai_text,
+        get_scores_final,
+        get_scores_initial,
+        get_scores_state,
+        get_scores_text,
+        get_transfer_final,
+        get_transfer_initial,
+        get_transfer_state,
+        get_transfer_text,
+        get_unmet_final,
+        get_unmet_initial,
+        get_unmet_state,
+        get_unmet_text,
+        get_wi_fi_final,
+        get_wi_fi_initial,
+        get_wi_fi_state,
+        get_wi_fi_text,
+        set_age_final,
+        set_age_initial,
+        set_age_state,
+        set_age_text,
+        set_athlete_final,
+        set_athlete_initial,
+        set_athlete_state,
+        set_athlete_text,
+        set_credits_final,
+        set_credits_initial,
+        set_credits_state,
+        set_credits_text,
+        set_distance_final,
+        set_distance_initial,
+        set_distance_state,
+        set_distance_text,
+        set_efc_final,
+        set_efc_initial,
+        set_efc_state,
+        set_efc_text,
+        set_epr_final,
+        set_epr_initial,
+        set_epr_state,
+        set_epr_text,
+        set_extracurricular_final,
+        set_extracurricular_initial,
+        set_extracurricular_state,
+        set_extracurricular_text,
+        set_firstgen_final,
+        set_firstgen_initial,
+        set_firstgen_state,
+        set_firstgen_text,
+        set_gender_final,
+        set_gender_initial,
+        set_gender_state,
+        set_gender_text,
+        set_gpa_final,
+        set_gpa_initial,
+        set_gpa_state,
+        set_gpa_text,
+        set_housing_final,
+        set_housing_initial,
+        set_housing_state,
+        set_housing_text,
+        set_legacy_final,
+        set_legacy_initial,
+        set_legacy_state,
+        set_legacy_text,
+        set_merit_final,
+        set_merit_initial,
+        set_merit_state,
+        set_merit_text,
+        set_midterms_final,
+        set_midterms_initial,
+        set_midterms_state,
+        set_midterms_text,
+        set_origins_final,
+        set_origins_initial,
+        set_origins_state,
+        set_origins_text,
+        set_pell_final,
+        set_pell_initial,
+        set_pell_plus_final,
+        set_pell_plus_initial,
+        set_pell_plus_state,
+        set_pell_plus_text,
+        set_pell_state,
+        set_pell_text,
+        set_printer_final,
+        set_printer_initial,
+        set_printer_state,
+        set_printer_text,
+        set_pronoun_final,
+        set_pronoun_initial,
+        set_pronoun_state,
+        set_pronoun_text,
+        set_race_final,
+        set_race_initial,
+        set_race_state,
+        set_race_text,
+        set_residency_final,
+        set_residency_initial,
+        set_residency_state,
+        set_residency_text,
+        set_sai_final,
+        set_sai_initial,
+        set_sai_state,
+        set_sai_text,
+        set_scores_final,
+        set_scores_initial,
+        set_scores_state,
+        set_scores_text,
+        set_transfer_final,
+        set_transfer_initial,
+        set_transfer_state,
+        set_transfer_text,
+        set_unmet_final,
+        set_unmet_initial,
+        set_unmet_state,
+        set_unmet_text,
+        set_wi_fi_final,
+        set_wi_fi_initial,
+        set_wi_fi_state,
+        set_wi_fi_text,
+    )
+
+
+@app.cell(hide_code=True)
+def task_1_getters(
     efc,
-    epr,
-    extracurricular,
-    firstgen,
-    gender,
-    get_age_final,
-    get_age_initial,
-    get_age_state,
-    get_athlete_final,
-    get_athlete_initial,
-    get_athlete_state,
-    get_credits_final,
-    get_credits_initial,
-    get_credits_state,
-    get_distance_final,
-    get_distance_initial,
-    get_distance_state,
     get_efc_final,
     get_efc_initial,
     get_efc_state,
-    get_epr_final,
-    get_epr_initial,
-    get_epr_state,
-    get_extracurricular_final,
-    get_extracurricular_initial,
-    get_extracurricular_state,
-    get_firstgen_final,
-    get_firstgen_initial,
-    get_firstgen_state,
-    get_gender_final,
-    get_gender_initial,
-    get_gender_state,
-    get_gpa_final,
-    get_gpa_initial,
-    get_gpa_state,
-    get_housing_final,
-    get_housing_initial,
-    get_housing_state,
-    get_legacy_final,
-    get_legacy_initial,
-    get_legacy_state,
+    get_efc_text,
     get_merit_final,
     get_merit_initial,
     get_merit_state,
-    get_midterms_final,
-    get_midterms_initial,
-    get_midterms_state,
-    get_origins_final,
-    get_origins_initial,
-    get_origins_state,
+    get_merit_text,
     get_pell_final,
     get_pell_initial,
     get_pell_plus_final,
     get_pell_plus_initial,
     get_pell_plus_state,
+    get_pell_plus_text,
     get_pell_state,
-    get_printer_final,
-    get_printer_initial,
-    get_printer_state,
-    get_pronoun_final,
-    get_pronoun_initial,
-    get_pronoun_state,
-    get_race_final,
-    get_race_initial,
-    get_race_state,
-    get_residency_final,
-    get_residency_initial,
-    get_residency_state,
+    get_pell_text,
     get_sai_final,
     get_sai_initial,
     get_sai_state,
-    get_scores_final,
-    get_scores_initial,
-    get_scores_state,
-    get_transfer_final,
-    get_transfer_initial,
-    get_transfer_state,
+    get_sai_text,
     get_unmet_final,
     get_unmet_initial,
     get_unmet_state,
-    get_wi_fi_final,
-    get_wi_fi_initial,
-    get_wi_fi_state,
-    gpa,
-    housing,
-    legacy,
+    get_unmet_text,
     merit,
-    midterms,
-    origins,
     pell,
     pell_plus,
-    printer,
-    pronouns,
-    race,
-    residency,
     sai,
-    scores,
-    transfer,
     unmet,
-    wi_fi,
 ):
-    getters = {
+    task_1_getters = {
         pell: {
             'state': get_pell_state(),
             'initial': get_pell_initial(),
             'final': get_pell_final(),
+    		'text': get_pell_text(),
         },
         efc: {
             'state': get_efc_state(),
             'initial': get_efc_initial(),
             'final': get_efc_final(),
+    		'text': get_efc_text(),
         },
         sai: {
             'state': get_sai_state(),
             'initial': get_sai_initial(),
             'final': get_sai_final(),
+    		'text': get_sai_text(),
         },
         unmet: {
             'state': get_unmet_state(),
             'initial': get_unmet_initial(),
             'final': get_unmet_final(),
+    		'text': get_unmet_text(),
         },
         merit: {
             'state': get_merit_state(),
             'initial': get_merit_initial(),
             'final': get_merit_final(),
+    		'text': get_merit_text(),
         },
         pell_plus: {
             'state': get_pell_plus_state(),
             'initial': get_pell_plus_initial(),
             'final': get_pell_plus_final(),
+    		'text': get_pell_plus_text(),
         },
+    }
+    return (task_1_getters,)
+
+
+@app.cell(hide_code=True)
+def task_2_getters(
+    age,
+    gender,
+    get_age_final,
+    get_age_initial,
+    get_age_state,
+    get_age_text,
+    get_gender_final,
+    get_gender_initial,
+    get_gender_state,
+    get_gender_text,
+    get_pronoun_final,
+    get_pronoun_initial,
+    get_pronoun_state,
+    get_pronoun_text,
+    get_race_final,
+    get_race_initial,
+    get_race_state,
+    get_race_text,
+    pronouns,
+    race,
+):
+    task_2_getters = {
         race: {
             'state': get_race_state(),
             'initial': get_race_initial(),
             'final': get_race_final(),
+    		'text': get_race_text(),
         },
         age: {
             'state': get_age_state(),
             'initial': get_age_initial(),
             'final': get_age_final(),
+    		'text': get_age_text(),
         },
         gender: {
             'state': get_gender_state(),
             'initial': get_gender_initial(),
             'final': get_gender_final(),
+    		'text': get_gender_text(),
         },
         pronouns: {
             'state': get_pronoun_state(),
             'initial': get_pronoun_initial(),
             'final': get_pronoun_final(),
+    		'text': get_pronoun_text(),
         },
+    }
+    return (task_2_getters,)
+
+
+@app.cell(hide_code=True)
+def task_3_getters(
+    epr,
+    get_epr_final,
+    get_epr_initial,
+    get_epr_state,
+    get_epr_text,
+    get_gpa_final,
+    get_gpa_initial,
+    get_gpa_state,
+    get_gpa_text,
+    get_midterms_final,
+    get_midterms_initial,
+    get_midterms_state,
+    get_midterms_text,
+    get_printer_final,
+    get_printer_initial,
+    get_printer_state,
+    get_printer_text,
+    get_scores_final,
+    get_scores_initial,
+    get_scores_state,
+    get_scores_text,
+    gpa,
+    midterms,
+    printer,
+    scores,
+):
+    task_3_getters = {
         gpa: {
             'state': get_gpa_state(),
             'initial': get_gpa_initial(),
             'final': get_gpa_final(),
+    		'text': get_gpa_text(),
         },
         scores: {
             'state': get_scores_state(),
             'initial': get_scores_initial(),
             'final': get_scores_final(),
+    		'text': get_scores_text(),
         },
         midterms: {
             'state': get_midterms_state(),
             'initial': get_midterms_initial(),
             'final': get_midterms_final(),
+    		'text': get_midterms_text(),
         },
         epr: {
             'state': get_epr_state(),
             'initial': get_epr_initial(),
             'final': get_epr_final(),
+    		'text': get_epr_text(),
         },
         printer: {
             'state': get_printer_state(),
             'initial': get_printer_initial(),
             'final': get_printer_final(),
+    		'text': get_printer_text(),
         },
+    }
+    return (task_3_getters,)
+
+
+@app.cell(hide_code=True)
+def task_4_getters(
+    athlete,
+    credits,
+    distance,
+    extracurricular,
+    firstgen,
+    get_athlete_final,
+    get_athlete_initial,
+    get_athlete_state,
+    get_athlete_text,
+    get_credits_final,
+    get_credits_initial,
+    get_credits_state,
+    get_credits_text,
+    get_distance_final,
+    get_distance_initial,
+    get_distance_state,
+    get_distance_text,
+    get_extracurricular_final,
+    get_extracurricular_initial,
+    get_extracurricular_state,
+    get_extracurricular_text,
+    get_firstgen_final,
+    get_firstgen_initial,
+    get_firstgen_state,
+    get_firstgen_text,
+    get_housing_final,
+    get_housing_initial,
+    get_housing_state,
+    get_housing_text,
+    get_legacy_final,
+    get_legacy_initial,
+    get_legacy_state,
+    get_legacy_text,
+    get_origins_final,
+    get_origins_initial,
+    get_origins_state,
+    get_origins_text,
+    get_residency_final,
+    get_residency_initial,
+    get_residency_state,
+    get_residency_text,
+    get_transfer_final,
+    get_transfer_initial,
+    get_transfer_state,
+    get_transfer_text,
+    get_wi_fi_final,
+    get_wi_fi_initial,
+    get_wi_fi_state,
+    get_wi_fi_text,
+    housing,
+    legacy,
+    origins,
+    residency,
+    transfer,
+    wi_fi,
+):
+    #helps to trigger reactive elements across the notebook as they update
+
+    task_4_getters = {
         legacy: {
             'state': get_legacy_state(),
             'initial': get_legacy_initial(),
             'final': get_legacy_final(),
+    		'text': get_legacy_text(),
         },
         athlete: {
             'state': get_athlete_state(),
             'initial': get_athlete_initial(),
             'final': get_athlete_final(),
+    		'text': get_athlete_text(),
         },
         firstgen: {
             'state': get_firstgen_state(),
             'initial': get_firstgen_initial(),
             'final': get_firstgen_final(),
+    		'text': get_firstgen_text(),
         },
         distance: {
             'state': get_distance_state(),
             'initial': get_distance_initial(),
             'final': get_distance_final(),
+    		'text': get_distance_text(),
         },
         credits: {
             'state': get_credits_state(),
             'initial': get_credits_initial(),
             'final': get_credits_final(),
+    		'text': get_credits_text(),
         },
         housing: {
             'state': get_housing_state(),
             'initial': get_housing_initial(),
             'final': get_housing_final(),
+    		'text': get_housing_text(),
         },
         residency: {
             'state': get_residency_state(),
             'initial': get_residency_initial(),
             'final': get_residency_final(),
+    		'text': get_residency_text(),
         },
         origins: {
             'state': get_origins_state(),
             'initial': get_origins_initial(),
             'final': get_origins_final(),
+    		'text': get_origins_text(),
         },
         transfer: {
             'state': get_transfer_state(),
             'initial': get_transfer_initial(),
             'final': get_transfer_final(),
+    		'text': get_transfer_text(),
         },
         extracurricular: {
             'state': get_extracurricular_state(),
             'initial': get_extracurricular_initial(),
             'final': get_extracurricular_final(),
+    		'text': get_extracurricular_text(),
         },
         wi_fi: {
             'state': get_wi_fi_state(),
             'initial': get_wi_fi_initial(),
             'final': get_wi_fi_final(),
+    		'text': get_wi_fi_text(),
         },
     }
-    return (getters,)
+    return (task_4_getters,)
 
 
 @app.cell(hide_code=True)
-def variable_details(correct):
+def variable_details():
+    #text used throughout notebook, in case it needs to be rewritten
+    textbox_text_boilerplate = 'Please briefly justify your reasoning for your'
+    correct = "Right Choice"
+
+    #labels for variable selection buttons, by task
+    button_labels_by_task = {
+        1: {'include': "Include", "exclude": "Exclude", "flag": "Flag for Review"},
+        2: {'include': "Include As-Is", "exclude": "Exclude Entirely", "flag": "Keep for Bias-Audit Only"},
+        3: {'include': "Include As-Is", "exclude": "Exclude (Too Unreliable)", "flag": "Flag for Data-Quality Improvement"},
+        4: {'include': "Include As-Is", "exclude": "Exclude (Too Unreliable)", "flag": "Flag for Data-Quality Improvement"},
+    }
+
     variable_details = {
         'pell': {
             'title': 'Pell Status',
@@ -695,13 +956,13 @@ def variable_details(correct):
                     'include': 'Including Pell Status violates current federal guidance and may expose the institution to penalties.'
                                'Consider aggregate reporting instead of individual-level use.',
                     'exclude': correct,
-                    'other': 'Flagged',
+                    'flag': 'Flagged',
                 },
                 'final': {
                     'include': "Including Pell Status violates current federal guidance and may expose the institution to penalties. "
                                "Consider aggregate reporting instead of individual-level use.",
                     'exclude': correct,
-                    'other': correct,
+                    'flag': correct,
                 }
             },
         },
@@ -714,13 +975,13 @@ def variable_details(correct):
                     'include': 'EFC is explicitly barred under 2024 Department of Education rules; '
                                'its inclusion would render the model non-compliant.',
                     'exclude': correct, 
-                    'other': 'Flagged',
+                    'flag': 'Flagged',
                 },
                 'final': {
                     'include': "EFC is explicitly barred under 2024 Department of Education rules; "
                                "its inclusion would render the model non-compliant.",
                     'exclude': correct,
-                    'other': correct,
+                    'flag': correct,
                 },
             },
         },
@@ -733,13 +994,13 @@ def variable_details(correct):
                     'include': 'SAI is sensitive financial-aid data with incomplete coverage. Using it risks privacy '
                                'violations and injects missing-data bias.',
                     'exclude': correct,
-                    'other': 'Flagged',
+                    'flag': 'Flagged',
                 },
                 'final': {
                     'include': "SAI is sensitive financial-aid data with incomplete coverage. "
                                "Using it risks privacy violations and injects missing-data bias.",
                     'exclude': correct,
-                    'other': correct,                
+                    'flag': correct,                
                 },
             },
         },
@@ -752,13 +1013,13 @@ def variable_details(correct):
                     'include': 'Unmet Need combines multiple restricted data points. '
                                'Including it would contravene policy and amplify socioeconomic bias.',
                     'exclude': correct,
-                    'other': 'Flagged',
+                    'flag': 'Flagged',
                 },
                 'final': {
                     'include': "Unmet Need combines multiple restricted data points. "
                                "Including it would contravene policy and amplify socioeconomic bias.",
                     'exclude': correct,
-                    'other': correct,
+                    'flag': correct,
                 },
             },
         },
@@ -772,13 +1033,13 @@ def variable_details(correct):
                     'include': 'Merit awards can proxy socioeconomic status and unintentionally disadvantage low-income students. '
                                'Use only with a strong equity justification.',
                     'exclude': correct,
-                    'other': 'Flagged',
+                    'flag': 'Flagged',
                 },
                 'final': {
                     'include': "Merit awards can proxy socioeconomic status and unintentionally disadvantage low-income students. "
                                "Use only with a strong equity justification.",
                     'exclude': correct,
-                    'other': correct,
+                    'flag': correct,
                 },
             },
         },
@@ -792,13 +1053,13 @@ def variable_details(correct):
                     'include': 'Pell Plus directly signals Pell participation; individual-level use is restricted. '
                                'Exclude or seek explicit legal clearance.',
                     'exclude': correct,
-                    'other': 'Flagged',
+                    'flag': 'Flagged',
                 },
                 'final': {
                     'include': "Pell Plus directly signals Pell participation; individual-level use is restricted. "
                                "Exclude or seek explicit legal clearance.",
                     'exclude': correct,
-                    'other': correct,
+                    'flag': correct,
                 },
             },
         },
@@ -812,14 +1073,14 @@ def variable_details(correct):
                                "Retain only for bias-audit.",
                     'exclude': "Without Race you lose the ability to audit fair outcomes across groups. "
                                "Best practice is to keep it for auditing while excluding it from model training.",
-                    'other': correct,
+                    'flag': correct,
                 },
                 'final': {
                     'include': "Using Race as a predictive feature can embed historical inequities and violate institutional policy. "
                                "Retain only for bias-audit.",
                     'exclude': "Without Race you lose the ability to audit fair outcomes across groups. "
                                "Best practice is to keep it for auditing while excluding it from model training.",
-                    'other': correct,
+                    'flag': correct,
                 },
             },
         },
@@ -831,12 +1092,12 @@ def variable_details(correct):
                 'initial': {
                     'include': "Directly modelling on Gender risks discriminatory interventions. Consider audit-only retention.",
                     'exclude': "Eliminating Gender data removes a key lens for detecting gender-based disparities as-is outputs.",
-                    'other': correct,
+                    'flag': correct,
                 },
                 'final': {
                     'include': "Directly modelling on Gender risks discriminatory interventions. Consider audit-only retention.",
                     'exclude': "Eliminating Gender data removes a key lens for detecting gender-based disparities as-is outputs.",
-                    'other': correct,
+                    'flag': correct,
                 },
             },
         },
@@ -851,14 +1112,14 @@ def variable_details(correct):
                                "Document equity safeguards or shift to audit-only use.",
                     'exclude': "Excluding Age erases patterns relevant to adult learners and hampers fairness checks. "
                                "Audit-only use is often a balanced choice.",
-                    'other': correct,
+                    'flag': correct,
                 },
                 'final': {
                     'include': "Age may correlate with persistence but also with protected status (non-traditional learners). "
                                "Document equity safeguards or shift to audit-only use.",
                     'exclude': "Excluding Age erases patterns relevant to adult learners and hampers fairness checks. "
                                "Audit-only use is often a balanced choice.",
-                    'other': correct,
+                    'flag': correct,
                 },
             },
         },
@@ -871,7 +1132,7 @@ def variable_details(correct):
                     'include': "Preferred Pronouns are not predictive of persistence and risk trivializing gender identity. "
                                "Exclude or store only for awareness training, not analytics.",
                     'exclude': correct,
-                    'other': "Pronoun data lack completeness and standardization, limiting audit utility. "
+                    'flag': "Pronoun data lack completeness and standardization, limiting audit utility. "
                              "Exclusion is usually appropriate.",
                 },
                 'final': {
@@ -879,7 +1140,7 @@ def variable_details(correct):
                                "Exclude or store only for awareness training, not analytics.",
                     'exclude': "Pronoun data lack completeness and standardization, limiting audit utility. "
                                "Exclusion is usually appropriate.",
-                    'other': correct,
+                    'flag': correct,
                 },
             },
         },
@@ -893,13 +1154,13 @@ def variable_details(correct):
                                "Consider excluding or flagging for quality remediation.",
                     'exclude': "Removing High-School GPA sacrifices a widely used predictor. "
                                "Could a scaled or percentile version salvage reliability?",
-                    'other': correct,
+                    'flag': correct,
                 },
                 'final': {
                     'include': "High-school GPAs lack standardisation; predictive value may be swamped by noise. "
                                "Consider excluding or flagging for quality remediation.",
                     'exclude': correct,
-                    'other': correct,
+                    'flag': correct,
                 },
             },
         },
@@ -915,14 +1176,14 @@ def variable_details(correct):
                                "A submission indicator or audit flag may be safer.",
                     'exclude': "Dropping Test Scores ignores a potentially strong signal for the subset who submitted. "
                                "Could you retain a binary ‘submitted’ flag instead?",
-                    'other': correct,
+                    'flag': correct,
                 },
                 'final': {
                     'include': "Raw Test Scores are sparse post-COVID; treating missing as zero could bias results. "
                                "A submission indicator or audit flag may be safer.",
                     'exclude': "Dropping Test Scores ignores a potentially strong signal for the subset who submitted. "
                                "Could you retain a binary ‘submitted’ flag instead?",
-                    'other': correct,
+                    'flag': correct,
                 },
             },
         },
@@ -936,14 +1197,14 @@ def variable_details(correct):
                                "Flag for quality improvement or exclude.",
                     'exclude': "Excluding Mid-Term Grades forfeits early academic-performance insight. "
                                "Could selective inclusion or data-quality work make it viable?",
-                    'other': correct,
+                    'flag': correct,
                 },
                 'final': {
                     'include': "Mid-Term Grades appear only for certain courses, risking departmental bias. "
                                "Flag for quality improvement or exclude.",
                     'exclude': "Excluding Mid-Term Grades forfeits early academic-performance insight. "
                                "Could selective inclusion or data-quality work make it viable?",
-                    'other': correct,
+                    'flag': correct,
                 },
             },
         },
@@ -957,13 +1218,13 @@ def variable_details(correct):
                     'include': "Sparse, faculty-dependent reporting could mislead the model. Flag for improvement or consider exclusion.",
                     'exclude': "You lose a proven early-alert signal. Engage stakeholders to improve reporting rather "
                                "than discard entirely.",
-                    'other': correct,
+                    'flag': correct,
                 },
                 'final': {
                     'include': "Sparse, faculty-dependent reporting could mislead the model. Flag for improvement or consider exclusion.",
                     'exclude': "You lose a proven early-alert signal. "
                                "Engage stakeholders to improve reporting rather than discard entirely.",
-                    'other': correct,
+                    'flag': correct,
                 },
             },
         },
@@ -976,13 +1237,13 @@ def variable_details(correct):
                     'include': "Printer logs cover only a subset of students and machines, yielding noisy, biased counts. "
                                "Little theoretical link to persistence.",
                     'exclude': "Standardising printer data would require major infrastructure changes—benefit unlikely to justify cost.",
-                    'other': "Appropriate—the variable is weakly linked to retention and suffers systemic gaps.",
+                    'flag': "Appropriate—the variable is weakly linked to retention and suffers systemic gaps.",
                 },
                 'final': {
                     'include': "Printer logs cover only a subset of students and machines, yielding noisy, biased counts. "
                                "Little theoretical link to persistence.",
                     'exclude': correct,
-                    'other': "Standardising printer data would require major infrastructure changes—benefit unlikely to justify cost.",
+                    'flag': "Standardising printer data would require major infrastructure changes—benefit unlikely to justify cost.",
                 },
             },
         },
@@ -996,13 +1257,13 @@ def variable_details(correct):
                                "Document why its predictive gain outweighs equity concerns.",
                     'exclude': "You removed a factor linked to institutional attachment. "
                                "Could advisors design fair interventions if they knew a student lacked legacy ties?",
-                    'other': correct,
+                    'flag': correct,
                 },
                 'final': {
                     'include': "Legacy Status may encode privilege and could unfairly prioritise well-connected students. "
                                "Document why its predictive gain outweighs equity concerns.",
                     'exclude': correct,
-                    'other': correct,
+                    'flag': correct,
                 },
             },
         },
@@ -1016,14 +1277,14 @@ def variable_details(correct):
                                "Ensure interventions add value.",
                     'exclude': "Athletes juggle academics and sport travel. "
                                "Excluding this variable may hide a known risk group lacking time for coursework.",
-                    'other': correct,
+                    'flag': correct,
                 },
                 'final': {
                     'include': "Athlete status already triggers dedicated advising; flagging athletes again may waste resources. "
                                "Ensure interventions add value.",
                     'exclude': "Athletes juggle academics and sport travel. "
                                "Excluding this variable may hide a known risk group lacking time for coursework.",
-                    'other': correct,
+                    'flag': correct,
                 },
             },
         },
@@ -1037,14 +1298,14 @@ def variable_details(correct):
                                "Be sure to explain positive, not deficit-based, interventions.",
                     'exclude': "First-generation students often benefit from navigational support. "
                                "Omitting this variable could undermine equity goals.",
-                    'other': correct,
+                    'flag': correct,
                 },
                 'final': {
                     'include': "Good call—first-gen status supports equity-minded outreach. "
                                "Be sure to explain positive, not deficit-based, interventions.",
                     'exclude': "First-generation students often benefit from navigational support. "
                                "Omitting this variable could undermine equity goals.",
-                    'other': correct,
+                    'flag': correct,
                 },
             },
         },
@@ -1058,14 +1319,14 @@ def variable_details(correct):
                                "Note whether actionable support exists (e.g., travel grants).",
                     'exclude': "Ignoring Distance removes insight into geographically isolated students "
                                "who may need community-building initiatives.",
-                    'other': correct,
+                    'flag': correct,
                 },
                 'final': {
                     'include': "Distance correlates with homesickness and travel cost but offers limited intervention levers. "
                                "Note whether actionable support exists (e.g., travel grants).",
                     'exclude': "Ignoring Distance removes insight into geographically isolated students "
                                "who may need community-building initiatives.",
-                    'other': correct,
+                    'flag': correct,
                 },
             },
         },
@@ -1077,12 +1338,12 @@ def variable_details(correct):
                 'initial': {
                     'include': "Strong early signal of load management issues. Advisors can act quickly—solid choice.",
                     'exclude': "Course-load changes are an actionable red flag. Excluding them weakens the model’s practical value.",
-                    'other': correct,
+                    'flag': correct,
                 },
                 'final': {
                     'include': "Strong early signal of load management issues. Advisors can act quickly—solid choice.",
                     'exclude': "Course-load changes are an actionable red flag. Excluding them weakens the model’s practical value.",
-                    'other': correct,
+                    'flag': correct,
                 },
             },
         },
@@ -1094,13 +1355,13 @@ def variable_details(correct):
                     'include': "Useful and actionable—commuters may need remote-friendly support. "
                                "Ensure interventions respect time and travel constraints.",
                     'exclude': "Housing status strongly predicts engagement. Excluding it may mask differences in retention risk.",
-                    'other': correct,
+                    'flag': correct,
                 },
                 'final': {
                     'include': "Useful and actionable—commuters may need remote-friendly support. "
                                "Ensure interventions respect time and travel constraints.",
                     'exclude': "Housing status strongly predicts engagement. Excluding it may mask differences in retention risk.",
-                    'other': correct,
+                    'flag': correct,
                 },
             },
         },
@@ -1112,13 +1373,13 @@ def variable_details(correct):
                     'include': "Residency drives cost burden; "
                                "interventions must avoid stereotyping out-of-state students as less committed.",
                     'exclude': "Cost differentials matter. Removing Residency could blunt financial-aid outreach to high-tuition groups.",
-                    'other': correct,
+                    'flag': correct,
                 },
                 'final': {
                     'include': "Residency drives cost burden; "
                                "interventions must avoid stereotyping out-of-state students as less committed.",
                     'exclude': "Cost differentials matter. Removing Residency could blunt financial-aid outreach to high-tuition groups.",
-                    'other': correct,
+                    'flag': correct,
                 },
             },
         },
@@ -1130,13 +1391,13 @@ def variable_details(correct):
                     'include': "Heuristic classification may mislabel students; validate definitions or risk noisy signals.",
                     'exclude': "Campus adjustment often differs by origin. "
                                "Excluding could overlook rural-to-urban transition challenges.",
-                    'other': correct,
+                    'flag': correct,
                 },
                 'final': {
                     'include': "Heuristic classification may mislabel students; validate definitions or risk noisy signals.",
                     'exclude': "Campus adjustment often differs by origin. "
                                "Excluding could overlook rural-to-urban transition challenges.",
-                    'other': correct,
+                    'flag': correct,
                 },
             },
         },
@@ -1147,12 +1408,12 @@ def variable_details(correct):
                 'initial': {
                     'include': "Transfer students face unique credit-articulation hurdles—actionable and equity-relevant.",
                     'exclude': "You dropped a key subgroup with elevated departure risk. Advisors may miss needed support.",
-                    'other': correct,
+                    'flag': correct,
                 },
                 'final': {
                     'include': "Transfer students face unique credit-articulation hurdles—actionable and equity-relevant.",
                     'exclude': "You dropped a key subgroup with elevated departure risk. Advisors may miss needed support.",
-                    'other': correct,
+                    'flag': correct,
                 },
             },
         },
@@ -1164,13 +1425,13 @@ def variable_details(correct):
                     'include': "Self-report bias and missingness limit reliability; "
                                "document caveats to avoid overstating predictive value.",
                     'exclude': "Engagement predicts belonging; consider flagging data-quality issues rather than discarding outright.",
-                    'other': correct,
+                    'flag': correct,
                 },
                 'final': {
                     'include': "Self-report bias and missingness limit reliability; "
                                "document caveats to avoid overstating predictive value.",
                     'exclude': "Engagement predicts belonging; consider flagging data-quality issues rather than discarding outright.",
-                    'other': correct,
+                    'flag': correct,
                 },
             },
         },
@@ -1182,425 +1443,179 @@ def variable_details(correct):
                     'include': "Correlation to retention unproven; risk of pathologising hobby behaviour. "
                                "Provide theoretical justification or exclude.",
                     'exclude': "Sensible—no established link to academic persistence.",
-                    'other': correct,
+                    'flag': correct,
                 },
                 'final': {
                     'include': "Correlation to retention unproven; risk of pathologising hobby behaviour. "
                                "Provide theoretical justification or exclude.",
                     'exclude': correct,
-                    'other': correct,
+                    'flag': correct,
                 },
             },
         },
     }
-    return (variable_details,)
+    return (
+        button_labels_by_task,
+        correct,
+        textbox_text_boilerplate,
+        variable_details,
+    )
 
 
 @app.cell(hide_code=True)
-def flow_management(mo):
-    #state getters and setters
-    continue_to_task_2, set_continue_to_task_2 = mo.state(False)
-    continue_to_task_3, set_continue_to_task_3 = mo.state(False)
-    continue_to_task_4, set_continue_to_task_4 = mo.state(False)
-    continue_to_final_check, set_continue_to_final_check = mo.state(False)
-    continue_to_final_feedback, set_continue_to_final_feedback = mo.state(False)
-    return (
-        continue_to_final_check,
-        continue_to_final_feedback,
-        continue_to_task_2,
-        continue_to_task_3,
-        continue_to_task_4,
-        set_continue_to_final_check,
-        set_continue_to_task_2,
-        set_continue_to_task_3,
-        set_continue_to_task_4,
-    )
-
-
-@app.cell
-def _(
-    continue_to_task_2,
-    mo,
-    set_continue_to_final_check,
-    set_continue_to_task_2,
-    set_continue_to_task_3,
-    set_continue_to_task_4,
+def variable_details_2(
+    age,
+    athlete,
+    credits,
+    distance,
+    efc,
+    epr,
+    extracurricular,
+    firstgen,
+    gender,
+    gpa,
+    housing,
+    legacy,
+    merit,
+    midterms,
+    origins,
+    pell,
+    pell_plus,
+    printer,
+    pronouns,
+    race,
+    residency,
+    sai,
+    scores,
+    task_1_getters,
+    task_2_getters,
+    task_3_getters,
+    task_4_getters,
+    transfer,
+    unmet,
+    wi_fi,
 ):
-    def update_flow_buttons(setter): 
-        setter(True)
-        continue_to_task_2()
+    #more variable details
+    #isolated due to marimo cycle issues
 
-    #continue buttons
-    launch_task_2 = mo.ui.run_button(label="Continue to Task 2", on_change=set_continue_to_task_2(True)).center()
-
-    launch_task_3 = mo.ui.button(label="Continue to Task 3", on_click=lambda _: update_flow_buttons(set_continue_to_task_3)).center()
-    launch_task_4 = mo.ui.button(label="Continue to Task 4", on_click=lambda _: update_flow_buttons(set_continue_to_task_4)).center()
-    launch_final_check = mo.ui.button(label="Continue to Final Check", 
-                                      on_click=lambda _: update_flow_buttons(set_continue_to_final_check)).center()
-    launch_final_feedback = mo.ui.button(label="Continue to Final Feedback", 
-                                         on_click=lambda _: update_flow_buttons(set_continue_to_final_check)).center()
-    return launch_task_2, launch_task_3
-
-
-@app.cell
-def reactive_elements_and_states(mo):
-    #task 1 getters and setters
-    get_pell_state, set_pell_state = mo.state(None)
-    get_efc_state, set_efc_state = mo.state(None)
-    get_sai_state, set_sai_state = mo.state(None)
-    get_unmet_state, set_unmet_state = mo.state(None)
-    get_merit_state, set_merit_state = mo.state(None)
-    get_pell_plus_state, set_pell_plus_state = mo.state(None)
-
-    #task 2
-
-    #getters and setters
-    get_race_state, set_race_state = mo.state(None)
-    get_gender_state, set_gender_state = mo.state(None)
-    get_age_state, set_age_state = mo.state(None)
-    get_pronoun_state, set_pronoun_state = mo.state(None)
+    variables_by_task = {
+        1: {
+            "variables": [pell, efc, sai, unmet, merit, pell_plus],
+            "header": "Regulatory Gate",
+            "getter": task_1_getters,
+        },
+        2: {
+            "variables": [race, gender, age, pronouns],
+            "header": "Protected-Attribute Gate",
+            "getter": task_2_getters,
+        },
+        3: {
+            "variables": [gpa, scores, midterms, epr, printer],
+            "header": "Data-Reliability Gate",
+            "getter": task_3_getters,
+        },
+        4: {
+            "variables": [legacy, athlete, firstgen, distance, credits, housing, residency, origins, transfer, extracurricular, wi_fi],
+            "header": "Equity & Actionability Gate",
+            "getter": task_4_getters,
+        },
+    }
+    return (variables_by_task,)
 
 
-    #task_3
-
-    #getters and setters
-    get_gpa_state, set_gpa_state = mo.state(None)
-    get_scores_state, set_scores_state = mo.state(None)
-    get_midterms_state, set_midterms_state = mo.state(None)
-    get_epr_state, set_epr_state = mo.state(None)
-    get_printer_state, set_printer_state = mo.state(None)
-
-    #task_4
-
-    #getters_and_setters
-    get_legacy_state, set_legacy_state = mo.state(None)
-    get_athlete_state, set_athlete_state = mo.state(None)
-    get_firstgen_state, set_firstgen_state = mo.state(None)
-    get_distance_state, set_distance_state = mo.state(None)
-    get_credits_state, set_credits_state = mo.state(None)
-    get_housing_state, set_housing_state = mo.state(None)
-    get_residency_state, set_residency_state = mo.state(None)
-    get_origins_state, set_origins_state = mo.state(None)
-    get_transfer_state, set_transfer_state = mo.state(None)
-    get_extracurricular_state, set_extracurricular_state = mo.state(None)
-    get_wi_fi_state, set_wi_fi_state = mo.state(None)
-
-    #feedback getters and setters
-    get_pell_initial, set_pell_initial = mo.state(None)
-    get_pell_final, set_pell_final = mo.state(None)
-    get_efc_initial, set_efc_initial = mo.state(None)
-    get_efc_final, set_efc_final = mo.state(None)
-    get_sai_initial, set_sai_initial = mo.state(None)
-    get_sai_final, set_sai_final = mo.state(None)
-    get_unmet_initial, set_unmet_initial = mo.state(None)
-    get_unmet_final, set_unmet_final = mo.state(None)
-    get_merit_initial, set_merit_initial = mo.state(None)
-    get_merit_final, set_merit_final = mo.state(None)
-    get_pell_plus_initial, set_pell_plus_initial = mo.state(None)
-    get_pell_plus_final, set_pell_plus_final = mo.state(None)
-    get_race_initial, set_race_initial = mo.state(None)
-    get_race_final, set_race_final = mo.state(None)
-    get_gender_initial, set_gender_initial = mo.state(None)
-    get_gender_final, set_gender_final = mo.state(None)
-    get_age_initial, set_age_initial = mo.state(None)
-    get_age_final, set_age_final = mo.state(None)
-    get_pronoun_initial, set_pronoun_initial = mo.state(None)
-    get_pronoun_final, set_pronoun_final = mo.state(None)
-    get_gpa_initial, set_gpa_initial = mo.state(None)
-    get_gpa_final, set_gpa_final = mo.state(None)
-    get_scores_initial, set_scores_initial = mo.state(None)
-    get_scores_final, set_scores_final = mo.state(None)
-    get_midterms_initial, set_midterms_initial = mo.state(None)
-    get_midterms_final, set_midterms_final = mo.state(None)
-    get_epr_initial, set_epr_initial = mo.state(None)
-    get_epr_final, set_epr_final = mo.state(None)
-    get_printer_initial, set_printer_initial = mo.state(None)
-    get_printer_final, set_printer_final = mo.state(None)
-    get_legacy_initial, set_legacy_initial = mo.state(None)
-    get_legacy_final, set_legacy_final = mo.state(None)
-    get_athlete_initial, set_athlete_initial = mo.state(None)
-    get_athlete_final, set_athlete_final = mo.state(None)
-    get_firstgen_initial, set_firstgen_initial = mo.state(None)
-    get_firstgen_final, set_firstgen_final = mo.state(None)
-    get_distance_initial, set_distance_initial = mo.state(None)
-    get_distance_final, set_distance_final = mo.state(None)
-    get_credits_initial, set_credits_initial = mo.state(None)
-    get_credits_final, set_credits_final = mo.state(None)
-    get_housing_initial, set_housing_initial = mo.state(None)
-    get_housing_final, set_housing_final = mo.state(None)
-    get_residency_initial, set_residency_initial = mo.state(None)
-    get_residency_final, set_residency_final = mo.state(None)
-    get_origins_initial, set_origins_initial = mo.state(None)
-    get_origins_final, set_origins_final = mo.state(None)
-    get_transfer_initial, set_transfer_initial = mo.state(None)
-    get_transfer_final, set_transfer_final = mo.state(None)
-    get_extracurricular_initial, set_extracurricular_initial = mo.state(None)
-    get_extracurricular_final, set_extracurricular_final = mo.state(None)
-    get_wi_fi_initial, set_wi_fi_initial = mo.state(None)
-    get_wi_fi_final, set_wi_fi_final = mo.state(None)
-    return (
-        get_age_final,
-        get_age_initial,
-        get_age_state,
-        get_athlete_final,
-        get_athlete_initial,
-        get_athlete_state,
-        get_credits_final,
-        get_credits_initial,
-        get_credits_state,
-        get_distance_final,
-        get_distance_initial,
-        get_distance_state,
-        get_efc_final,
-        get_efc_initial,
-        get_efc_state,
-        get_epr_final,
-        get_epr_initial,
-        get_epr_state,
-        get_extracurricular_final,
-        get_extracurricular_initial,
-        get_extracurricular_state,
-        get_firstgen_final,
-        get_firstgen_initial,
-        get_firstgen_state,
-        get_gender_final,
-        get_gender_initial,
-        get_gender_state,
-        get_gpa_final,
-        get_gpa_initial,
-        get_gpa_state,
-        get_housing_final,
-        get_housing_initial,
-        get_housing_state,
-        get_legacy_final,
-        get_legacy_initial,
-        get_legacy_state,
-        get_merit_final,
-        get_merit_initial,
-        get_merit_state,
-        get_midterms_final,
-        get_midterms_initial,
-        get_midterms_state,
-        get_origins_final,
-        get_origins_initial,
-        get_origins_state,
-        get_pell_final,
-        get_pell_initial,
-        get_pell_plus_final,
-        get_pell_plus_initial,
-        get_pell_plus_state,
-        get_pell_state,
-        get_printer_final,
-        get_printer_initial,
-        get_printer_state,
-        get_pronoun_final,
-        get_pronoun_initial,
-        get_pronoun_state,
-        get_race_final,
-        get_race_initial,
-        get_race_state,
-        get_residency_final,
-        get_residency_initial,
-        get_residency_state,
-        get_sai_final,
-        get_sai_initial,
-        get_sai_state,
-        get_scores_final,
-        get_scores_initial,
-        get_scores_state,
-        get_transfer_final,
-        get_transfer_initial,
-        get_transfer_state,
-        get_unmet_final,
-        get_unmet_initial,
-        get_unmet_state,
-        get_wi_fi_final,
-        get_wi_fi_initial,
-        get_wi_fi_state,
-        set_age_final,
-        set_age_initial,
-        set_age_state,
-        set_athlete_final,
-        set_athlete_initial,
-        set_athlete_state,
-        set_credits_final,
-        set_credits_initial,
-        set_credits_state,
-        set_distance_final,
-        set_distance_initial,
-        set_distance_state,
-        set_efc_final,
-        set_efc_initial,
-        set_efc_state,
-        set_epr_final,
-        set_epr_initial,
-        set_epr_state,
-        set_extracurricular_final,
-        set_extracurricular_initial,
-        set_extracurricular_state,
-        set_firstgen_final,
-        set_firstgen_initial,
-        set_firstgen_state,
-        set_gender_final,
-        set_gender_initial,
-        set_gender_state,
-        set_gpa_final,
-        set_gpa_initial,
-        set_gpa_state,
-        set_housing_final,
-        set_housing_initial,
-        set_housing_state,
-        set_legacy_final,
-        set_legacy_initial,
-        set_legacy_state,
-        set_merit_final,
-        set_merit_initial,
-        set_merit_state,
-        set_midterms_final,
-        set_midterms_initial,
-        set_midterms_state,
-        set_origins_final,
-        set_origins_initial,
-        set_origins_state,
-        set_pell_final,
-        set_pell_initial,
-        set_pell_plus_final,
-        set_pell_plus_initial,
-        set_pell_plus_state,
-        set_pell_state,
-        set_printer_final,
-        set_printer_initial,
-        set_printer_state,
-        set_pronoun_final,
-        set_pronoun_initial,
-        set_pronoun_state,
-        set_race_final,
-        set_race_initial,
-        set_race_state,
-        set_residency_final,
-        set_residency_initial,
-        set_residency_state,
-        set_sai_final,
-        set_sai_initial,
-        set_sai_state,
-        set_scores_final,
-        set_scores_initial,
-        set_scores_state,
-        set_transfer_final,
-        set_transfer_initial,
-        set_transfer_state,
-        set_unmet_final,
-        set_unmet_initial,
-        set_unmet_state,
-        set_wi_fi_final,
-        set_wi_fi_initial,
-        set_wi_fi_state,
-    )
-
-
-@app.cell
-def functions(correct, getters, mo, reactive_dict, variable_details):
-
+@app.cell(hide_code=True)
+def functions(correct, mo, variables_by_task):
     #functions
+
     def var_selection_text_generator(choice:str|None, task:int)->str: 
+        '''
+        confirmation text for the user's variable choice(s)
+        '''
         if choice == 'include': 
             insert_text = "🟢 **Include** the variable **as-is**."
         elif choice == 'exclude':
-            insert_text = "🔴 **Exclude** the variable **entirely**."
-        elif choice == 'other': 
+            if task in [1,2]: 
+                insert_text = "🔴 **Exclude** the variable **entirely**."
+            if task in [3, 4]:
+                insert_text = "🔴 **Exclude** the variable **due to unreliability**."    
+        elif choice == 'flag': 
             if task==1: 
-                insert_text = "🟡 **Flag** the variable **for Review**."
+                insert_text = "🟠 **Flag** the variable **for Review**."
             elif task == 2: 
                 insert_text = '🟠 **Keep** the variable **for Bias-Audit Only**.'
             elif task in [3, 4]: 
-                insert_text = '🟠 **Flag** the variable **for Data-Quality Improvement**.'
-        elif choice == 'exclude_unre': 
-            insert_text = "🔴 **Exclude** the variable **due to unreliability**."
+                insert_text = '🟠 **Flag** the variable **for Data-Quality Improvement**.'        
         else:
             insert_text = "⚪️ **not yet selected**"
             return f"You have {insert_text} a variable option."
         return f"You decided to {insert_text}"
 
 
-    def process_task_variables(obj):
+    def process_task_variables(obj, getter):
+        '''
+        collects and formats the text and reactive elements for each individual variable within a task's selection cell
+        '''
         content = mo.vstack([
             mo.md(obj.definition),
             mo.hstack([obj.incl, obj.excl, obj.flag])            
         ])
         output = mo.vstack([
             mo.accordion({obj.title: content}),
-            mo.md(f"""{var_selection_text_generator(getters[obj]['state'], obj.task)}"""),
-            obj.text if getters[obj]['state'] else ''
+            mo.md(f"""{var_selection_text_generator(getter[obj]['state'], obj.task)}"""),
+            obj.text if getter[obj]['state'] else ''
         ])
         return output
 
 
-    def initial_variable_feedback(obj): 
-        get = getters[obj]['state']
-        response_text = getters[obj]['initial'] if get else ''
+    def initial_variable_feedback(obj, getter): 
+        '''
+        collects and formats the text and reactive elements for each individual variable's feedback
+        '''
+        response_text = getter[obj]['initial'] if getter[obj]['initial'] else ''
         feedback_out = mo.md(f"""**{obj.title}:** {response_text}""") 
         return feedback_out
 
 
-    # def variable_selection_output(var:str): 
-    #     reactives, text, getter = gather_variable_attributes(var)
-    #     content = mo.vstack([
-    #         mo.md(text['def']),
-    #         mo.hstack([reactives['include'], reactives['exclude'], reactives['other']], gap='1rem'),
-    #     ])
-    #     reactives = reactive_dict[var]
-    #     output = mo.vstack([
-    #         mo.accordion({text['title']: content}),
-    #         mo.md(f"""{var_selection_text_generator(getter)}"""),
-    #         reactives['textbox'] if getter else ''
-    #     ])
-    #     return output
+    def variable_selection_generator(tasknumber:int): 
+        '''
+        builds the layout that compiles all of the task's individual text/reactive elements into one output
+        '''
+        var_selection_menu = [process_task_variables(var_option, variables_by_task[tasknumber]['getter']) 
+                              for var_option 
+                              in variables_by_task[tasknumber]['variables']
+                             ]
+        return mo.output.replace(mo.vstack(var_selection_menu))
 
 
-    def gather_variable_attributes(var:str):
-        return reactive_dict[var], variable_details[var], reactive_dict[var]['getter']
+    def initial_feedback_generator(tasknumber: int): 
+        '''
+        builds the layout that compiles all of a task's individual pieces of feedback into one output
+        '''
+        task_level_feedback = [initial_variable_feedback(var_item, variables_by_task[tasknumber]['getter']) 
+                               for var_item 
+                               in variables_by_task[tasknumber]['variables']
+                              ]
+        return mo.accordion({"Detailed Feedback": mo.vstack(task_level_feedback)})
 
 
-    # def generate_feedback(var:str):
-    #     reactives, text, getter = gather_variable_attributes(var) 
-    #     if getter: 
-    #         if getter in text['feedback']['initial']:
-    #             feedback_message = text['feedback']['initial'][getter]
-    #         else: 
-    #             feedback_message = text['feedback']['initial']['other']
-    #     else: 
-    #         feedback_message = ''
-    #     return mo.md(f"""**{text['title']}:** {feedback_message}""")
-
-
-    def decision_label(choice):
-        if choice in ["include", "include_as_is", "include_as-is"]:
-            return "Include"
-        elif choice in ["flag", "flag_improvement", "audit_only"]:
-            return "Flag"
-        elif choice in ["exclude", "exclude_unreliable", "exclude_entirely"]:
-            return "Exclude"
-        else:
-            return "No Selection"
-
-
-    def gather_final_feedback(var: str, correct_list: list[any], incorrect: list[any]):
-        reactives, text, getter = gather_variable_attributes(var)
-        title = text['title']
-        if getter: 
-            if getter not in ['include', 'exclude']: 
-                getter = 'other'
-            feedback = text['feedback']['final'][getter] 
-            if feedback == correct:
-                correct_list.append(title)
-            else: 
-                incorrect.append(mo.md(f"""**{title}**: {feedback}"""))
+    def gather_final_feedback(var, getter, correct_list: list[any], incorrect: list[any]):
+        '''
+        collects the text and reactive elements for each individual variable in preparation for the final list of feedback 
+        '''
+        if getter[var]['final'] == correct:
+            correct_list.append(var.title)
         else: 
-            incorrect.append(mo.md(f"""**{title}**: No variable was selected."""))
+            if not getter[var]['final']: 
+                incorrect.append(mo.md(f"""**{var.title}**: No variable was selected."""))
+            else: 
+                incorrect.append(mo.md(f"""**{var.title}**: {getter[var]['final']}"""))
         return correct_list, incorrect
 
 
     def format_final_feedback(correct: list[any], incorrect: list[any]): 
+        '''
+        builds the layout for the final feedback cell
+        '''
         corr_text = f"""✅ **No major concerns for:** {', '.join(correct)}""" if len(correct)>0 else ""
         corr_output = mo.md(corr_text)
         incorr_text = "⚠️ **At least one restricted variable still needs your attention.**" if len(incorrect)>0 else "✅ **Everything looks good in this wave!**"
@@ -1608,11 +1623,10 @@ def functions(correct, getters, mo, reactive_dict, variable_details):
         final_output = mo.vstack([incorr_output] + incorrect + [corr_output])
         return final_output
     return (
-        decision_label,
         format_final_feedback,
         gather_final_feedback,
-        initial_variable_feedback,
-        process_task_variables,
+        initial_feedback_generator,
+        variable_selection_generator,
     )
 
 
@@ -1627,7 +1641,7 @@ def _():
 
 
 @app.cell(hide_code=True)
-def task_1(mo):
+def introduction(mo):
     mo.vstack(
         [
             # 1) subtitle
@@ -1685,11 +1699,62 @@ def task_1(mo):
 
             mo.md("&nbsp;"),
 
-            # 3) instructions for the table
+            # # 3) instructions for the table
+            # mo.md("## Task 1 Regulatory Gate"),
+            # mo.md("*For each variable choose **one** action:*"),
+
+            # # 4) centralized table
+            # mo.Html(
+            #     """
+            #     <div style="display:flex; justify-content:center;">
+            #       <table style="border-collapse:separate; border-spacing:0 6px; text-align:center;">
+            #         <thead>
+            #           <tr>
+            #             <th style="padding:0.5rem 1.5rem;">Action</th>
+            #             <th style="padding:0.5rem 1.5rem;">Meaning</th>
+            #           </tr>
+            #         </thead>
+            #         <tbody>
+            #           <tr>
+            #             <td style="padding:0.5rem 1.5rem;"><b>Include</b></td>
+            #             <td style="padding:0.5rem 1.5rem;">
+            #               Use this variable in the predictive model.
+            #             </td>
+            #           </tr>
+            #           <tr>
+            #             <td style="padding:0.5rem 1.5rem;"><b>Exclude</b></td>
+            #             <td style="padding:0.5rem 1.5rem;">
+            #               Remove it from consideration.
+            #             </td>
+            #           </tr>
+            #           <tr>
+            #             <td style="padding:0.5rem 1.5rem;"><b>Flag for Legal / IRB Review</b></td>
+            #             <td style="padding:0.5rem 1.5rem;">
+            #               Put the variable on hold until university counsel (or the IRB) provides guidance.
+            #             </td>
+            #           </tr>
+            #         </tbody>
+            #       </table>
+            #     </div>
+            #     """
+            # ),
+        ]
+    )
+    return
+
+
+@app.cell
+def anchor_task_1(mo):
+    mo.Html('<div id="task_1"></div>')
+    return
+
+
+@app.cell(hide_code=True)
+def task_1(mo):
+    mo.vstack(
+        [
             mo.md("## Task 1 Regulatory Gate"),
             mo.md("*For each variable choose **one** action:*"),
-
-            # 4) centralized table
             mo.Html(
                 """
                 <div style="display:flex; justify-content:center;">
@@ -1708,7 +1773,7 @@ def task_1(mo):
                         </td>
                       </tr>
                       <tr>
-                        <td style="padding:0.5rem 1.5rem;"><b>Exclude</b></td>
+                       <td style="padding:0.5rem 1.5rem;"><b>Exclude</b></td>
                         <td style="padding:0.5rem 1.5rem;">
                           Remove it from consideration.
                         </td>
@@ -1724,40 +1789,21 @@ def task_1(mo):
                 </div>
                 """
             ),
+
         ]
     )
     return
 
 
 @app.cell
-def anchor_task_1(mo):
-    mo.Html('<div id="task_1"></div>')
+def task_1_variable_selection(variable_selection_generator):
+    variable_selection_generator(1)
     return
 
 
 @app.cell
-def _(mo):
-    mo.md("""
-    ##come back here
-    """)
-    return
-
-
-@app.cell
-def _(mo, process_task_variables, variables_by_task):
-    task_1_variable_selection = [process_task_variables(item) for item in variables_by_task[1]['variables']]
-
-    mo.output.replace(mo.vstack(task_1_variable_selection))
-    return
-
-
-@app.cell
-def _(initial_variable_feedback, mo, variables_by_task):
-    task_1_feedback = [initial_variable_feedback(var) for var in variables_by_task[1]['variables']]
-
-    content_detail_feedback = mo.vstack(task_1_feedback)
-
-    mo.accordion({"Detailed Feedback": content_detail_feedback})
+def task_1_initial_feedback(initial_feedback_generator):
+    initial_feedback_generator(1)
     return
 
 
@@ -1770,21 +1816,13 @@ def section_separator(mo):
 
 
 @app.cell
-def _(launch_task_2):
-    launch_task_2
-    return
-
-
-@app.cell
 def anchor_task_2(mo):
     mo.Html('<div id="task_2"></div>')
     return
 
 
 @app.cell(hide_code=True)
-def task_2(continue_to_task_2, mo):
-    mo.stop(not continue_to_task_2())
-
+def task_2(mo):
     mo.vstack([
         mo.md("## Task 2 – Protected-Attribute Gate: Fairness and Equity Check"),
         mo.md(
@@ -1834,58 +1872,22 @@ def task_2(continue_to_task_2, mo):
 
 
 @app.cell
-def _(mo, process_task_variables, variables_by_task):
-    task_2_variable_selection = [process_task_variables(item) for item in variables_by_task[2]['variables']]
-
-    mo.output.replace(mo.vstack(task_2_variable_selection))
+def task_2_variable_selection(variable_selection_generator):
+    variable_selection_generator(2)
     return
 
 
 @app.cell
-def _(initial_variable_feedback, mo, variables_by_task):
-    task_2_feedback = [initial_variable_feedback(var) for var in variables_by_task[2]['variables']]
-
-    content_detail_feedback_2 = mo.vstack(task_2_feedback)
-
-    mo.accordion({"Detailed Feedback": content_detail_feedback_2})
+def task_2_initial_feedback(initial_feedback_generator):
+    initial_feedback_generator(2)
     return
 
 
-@app.cell(hide_code=True)
-def task_2_selections():
-    # mo.stop(not continue_to_task_2())
-    # task_2_display_output = [variable_selection_output(var) for var in variables_by_task[2]['variables']]
-
-    # mo.output.replace(
-    #     mo.vstack(task_2_display_output)
-    # )
-    return
-
-
-@app.cell(hide_code=True)
-def task_2_detailed_feedback():
-    # mo.stop(not continue_to_task_2())
-    # task_2_feedback = [generate_feedback(var) for var in variables_by_task[2]['variables']]
-
-    # task_2_content_detail_feedback = mo.vstack(task_2_feedback)
-
-    # mo.accordion({"Detailed Feedback": task_2_content_detail_feedback})
-    return
-
-
-@app.cell(hide_code=True)
-def section_separator(continue_to_task_2, mo):
-    mo.stop(not continue_to_task_2())
+@app.cell
+def section_separator(mo):
     mo.Html("""
     <hr style="border: 1px dashed black; margin-top:2.5rem; margin-bottom:3rem;">
     """)
-    return
-
-
-@app.cell
-def _(continue_to_task_2, launch_task_3, mo):
-    mo.stop(not continue_to_task_2())
-    launch_task_3
     return
 
 
@@ -1896,9 +1898,7 @@ def anchor_task_3(mo):
 
 
 @app.cell(hide_code=True)
-def task_3(continue_to_task_3, mo):
-    mo.stop(not continue_to_task_3())
-
+def task_3(mo):
     mo.vstack([
         mo.md("## Task 3 – Data-Reliability Gate: Data Quality, Context Awareness, and Proportionality"),
         mo.md(
@@ -1947,43 +1947,20 @@ def task_3(continue_to_task_3, mo):
     return
 
 
-@app.cell(hide_code=True)
-def task_3_selections(
-    continue_to_task_3,
-    mo,
-    variable_selection_output,
-    variables_by_task,
-):
-    mo.stop(not continue_to_task_3())
-    task_3_display_output = [variable_selection_output(var) for var in variables_by_task[3]['variables']]
-
-    mo.output.replace(
-        mo.vstack(task_3_display_output)
-    )
+@app.cell
+def task_3_variable_selection(variable_selection_generator):
+    variable_selection_generator(3)
     return
 
 
-@app.cell(hide_code=True)
-def task_3_detailed_feedback(
-    continue_to_task_3,
-    generate_feedback,
-    mo,
-    variables_by_task,
-):
-    mo.stop(not continue_to_task_3())
-
-    task_3_feedback = [generate_feedback(var) for var in variables_by_task[3]['variables']]
-
-    task_3_content_detail_feedback = mo.vstack(task_3_feedback)
-
-    mo.accordion({"Detailed Feedback": task_3_content_detail_feedback})
+@app.cell
+def task_3_initial_feedback(initial_feedback_generator):
+    initial_feedback_generator(3)
     return
 
 
-@app.cell(hide_code=True)
-def section_separator(continue_to_task_3, mo):
-    mo.stop(not continue_to_task_3())
-
+@app.cell
+def section_separator(mo):
     mo.Html("""
     <hr style="border: 1px dashed black; margin-top:2.5rem; margin-bottom:3rem;">
     """)
@@ -1997,9 +1974,7 @@ def anchor_task_4(mo):
 
 
 @app.cell(hide_code=True)
-def task_4(continue_to_task_4, mo):
-    mo.stop(not continue_to_task_4())
-
+def task_4(mo):
     mo.vstack([
         mo.md("## Task 4 – Equity & Actionability Gate: Beneficence, Proportionality, and Transparency"),
         mo.md(
@@ -2048,228 +2023,20 @@ def task_4(continue_to_task_4, mo):
     return
 
 
-@app.cell(hide_code=True)
-def _():
-    #keeping until I'm sure I can delete
-    # task_4_variable_details = {
-    #     'legacy': {
-    #         'title': 'Legacy Status',
-    #         'def': 'Whether the student has family members who previously attended the university. May indicate stronger institutional ties.',
-    #         'feedback': {
-    #             'include': 'Legacy Status may encode privilege and could unfairly prioritise well-connected students. Document why its predictive gain outweighs equity concerns.',
-    #             'exclude': 'You removed a factor linked to institutional attachment. Could advisors design fair interventions if they knew a student lacked legacy ties?',
-    #             'flag_impr': 'Right Call',
-    #         },
-    #         'getter': get_legacy_choice(),
-    #         'textbox': legacy_textbox,
-    #         'buttons': {
-    #             'include': legacy_incl,
-    #             'exclude': legacy_excl,
-    #             'other': legacy_flag,
-    #         },
-    #     },
-    #     'athlete': {
-    #         'title': 'Student Athlete Status',
-    #         'def': 'Whether the student participates in university athletics. May indicate additional support structures but also time commitments.',
-    #         'feedback': {
-    #             'include': 'Athlete status already triggers dedicated advising; flagging athletes again may waste resources. Ensure interventions add value.',
-    #             'exclude': 'Athletes juggle academics and sport travel. Excluding this variable may hide a known risk group lacking time for coursework.',
-    #             'flag_impr': 'Right Call',
-    #         },
-    #         'getter': get_athlete_choice(),
-    #         'textbox': athlete_textbox,
-    #         'buttons': {
-    #             'include': athlete_incl,
-    #             'exclude': athlete_excl,
-    #             'other': athlete_flag,
-    #         },
-    #     },
-    #     'firstgen': {
-    #         'title': 'First Generation Status',
-    #         'def': 'Indicates if the student is the first in their family to attend college; may reflect differences in familiarity with college processes.',
-    #         'feedback': {
-    #             'include': 'Good call—first-gen status supports equity-minded outreach. Be sure to explain positive, not deficit-based, interventions.',
-    #             'exclude': 'First-generation students often benefit from navigational support. Omitting this variable could undermine equity goals.',
-    #             'flag_impr': 'Right Call',
-    #         },
-    #         'getter': get_firstgen_choice(),
-    #         'textbox': firstgen_textbox,
-    #         'buttons': {
-    #             'include': firstgen_incl,
-    #             'exclude': firstgen_excl,
-    #             'other': firstgen_flag,
-    #         },
-    #     },
-    #     'distance': {
-    #         'title': 'Distance From Home',
-    #         'def': 'Calculated metric based on student’s home address and campus location; privacy-preserving alternative to ZIP codes.',
-    #         'feedback': {
-    #             'include': 'Distance correlates with homesickness and travel cost but offers limited intervention levers. Note whether actionable support exists (e.g., travel grants).',
-    #             'exclude': 'Ignoring Distance removes insight into geographically isolated students who may need community-building initiatives.',
-    #             'flag_impr': 'Right Call',
-    #         },
-    #         'getter': get_distance_choice(),
-    #         'textbox': distance_textbox,
-    #         'buttons': {
-    #             'include': distance_incl,
-    #             'exclude': distance_excl,
-    #             'other': distance_flag,
-    #         },
-    #     },
-    #     'credits': {
-    #         'title': 'Credits After Add/Drop',
-    #         'def': 'Credit hours the student is taking after the official add/drop deadline; may reflect adjustment to academic realities.',
-    #         'feedback': {
-    #             'include': 'Strong early signal of load management issues. Advisors can act quickly—solid choice.',
-    #             'exclude': 'Course-load changes are an actionable red flag. Excluding them weakens the model’s practical value.',
-    #             'flag_impr': 'Right Call',
-    #         },
-    #         'getter': get_credits_choice(),
-    #         'textbox': credits_textbox,
-    #         'buttons': {
-    #             'include': credits_incl,
-    #             'exclude': credits_excl,
-    #             'other': credits_flag,
-    #         },
-    #     },
-    #     'housing': {
-    #         'title': 'Live On Campus or Commuter',
-    #         'def': 'Housing status affects integration into campus life and access to resources.',
-    #         'feedback': {
-    #             'include': 'Useful and actionable—commuters may need remote-friendly support. Ensure interventions respect time and travel constraints.',
-    #             'exclude': 'Housing status strongly predicts engagement. Excluding it may mask differences in retention risk.',
-    #             'flag_impr': 'Right Call',
-    #         },
-    #         'getter': get_housing_choice(),
-    #         'textbox': housing_textbox,
-    #         'buttons': {
-    #             'include': housing_incl,
-    #             'exclude': housing_excl,
-    #             'other': housing_flag,
-    #         },
-    #     },
-    #     'residency': {
-    #         'title': 'Residency (In-State / Out-of-State / International)',
-    #         'def': 'Affects tuition rates and connection to campus.',
-    #         'feedback': {
-    #             'include': 'Residency drives cost burden; interventions must avoid stereotyping out-of-state students as less committed.',
-    #             'exclude': 'Cost differentials matter. Removing Residency could blunt financial-aid outreach to high-tuition groups.',
-    #             'flag_impr': 'Right Call',
-    #         },
-    #         'getter': get_residency_choice(),
-    #         'textbox': residency_textbox,
-    #         'buttons': {
-    #             'include': residency_incl,
-    #             'exclude': residency_excl,
-    #             'other': residency_flag,
-    #         },
-    #     },
-    #     'origins': {
-    #         'title': 'Urban / Rural / Suburban Origins',
-    #         'def': 'Classification of student’s home community; derived from heuristics.',
-    #         'feedback': {
-    #             'include': 'Heuristic classification may mislabel students; validate definitions or risk noisy signals.',
-    #             'exclude': 'Campus adjustment often differs by origin. Excluding could overlook rural-to-urban transition challenges.',
-    #             'flag_impr': 'Right Call',
-    #         },
-    #         'getter': get_origins_choice(),
-    #         'textbox': origins_textbox,
-    #         'buttons': {
-    #             'include': origins_incl,
-    #             'exclude': origins_excl,
-    #             'other': origins_flag,
-    #         },
-    #     },
-    #     'transfer': {
-    #         'title': 'Transfer Status',
-    #         'def': 'Whether the student transferred from another institution versus starting as a first-year.',
-    #         'feedback': {
-    #             'include': 'Transfer students face unique credit-articulation hurdles—actionable and equity-relevant.',
-    #             'exclude': 'You dropped a key subgroup with elevated departure risk. Advisors may miss needed support.',
-    #             'flag_impr': 'Right Call',
-    #         },
-    #         'getter': get_transfer_choice(),
-    #         'textbox': transfer_textbox,
-    #         'buttons': {
-    #             'include': transfer_incl,
-    #             'exclude': transfer_excl,
-    #             'other': transfer_flag,
-    #         },
-    #     },
-    #     'extracurricular': {
-    #         'title': 'Extracurricular Involvement',
-    #         'def': 'Participation in clubs or other non-academic activities; data collection relies on self-reporting.',
-    #         'feedback': {
-    #             'include': 'Self-report bias and missingness limit reliability; document caveats to avoid overstating predictive value.',
-    #             'exclude': 'Engagement predicts belonging; consider flagging data-quality issues rather than discarding outright.',
-    #             'flag_impr': 'Right Call',
-    #         },
-    #         'getter': get_extracurricular_choice(),
-    #         'textbox': extracurricular_textbox,
-    #         'buttons': {
-    #             'include': extracurricular_incl,
-    #             'exclude': extracurricular_excl,
-    #             'other': extracurricular_flag,
-    #         },
-    #     },
-    #     'wi_fi': {
-    #         'title': 'Campus-Wi-Fi Gaming Network Participation',
-    #         'def': 'Binary flag—student devices connected to high-traffic gaming ports for ≥ 5 hours/week during evenings.',
-    #         'feedback': {
-    #             'include': 'Correlation to retention unproven; risk of pathologising hobby behaviour. Provide theoretical justification or exclude.',
-    #             'exclude': 'Sensible—no established link to academic persistence.',
-    #             'flag_impr': 'Right Call',
-    #         },
-    #         'getter': get_wi_fi_choice(),
-    #         'textbox': wi_fi_textbox,
-    #         'buttons': {
-    #             'include': wi_fi_incl,
-    #             'exclude': wi_fi_excl,
-    #             'other': wi_fi_flag,
-    #         },
-    #     },
-    # }
+@app.cell
+def task_4_variable_selection(variable_selection_generator):
+    variable_selection_generator(4)
+    return
+
+
+@app.cell
+def task_4_initial_feedback(initial_feedback_generator):
+    initial_feedback_generator(4)
     return
 
 
 @app.cell(hide_code=True)
-def task_4_selection(
-    continue_to_task_4,
-    mo,
-    variable_selection_output,
-    variables_by_task,
-):
-    mo.stop(not continue_to_task_4())
-
-    task_4_display_output = [variable_selection_output(var) for var in variables_by_task[4]['variables']]
-
-    mo.output.replace(
-        mo.vstack(task_4_display_output)
-    )
-    return
-
-
-@app.cell(hide_code=True)
-def task_4_detailed_feedback(
-    continue_to_task_4,
-    generate_feedback,
-    mo,
-    variables_by_task,
-):
-    mo.stop(not continue_to_task_4())
-
-    task_4_feedback = [generate_feedback(var) for var in variables_by_task[4]['variables']]
-
-    task_4_content_detail_feedback = mo.vstack(task_4_feedback)
-
-    mo.accordion({"Detailed Feedback": task_4_content_detail_feedback})
-    return
-
-
-@app.cell(hide_code=True)
-def section_separator(continue_to_task_4, mo):
-    mo.stop(not continue_to_task_4())
-
+def section_separator(mo):
     mo.Html("""
     <hr style="border: 1px dashed black; margin-top:2.5rem; margin-bottom:3rem;">
     """)
@@ -2277,13 +2044,18 @@ def section_separator(continue_to_task_4, mo):
 
 
 @app.cell
-def wrapup_intro(mo, reactive_dict):
+def wrapup_intro(mo, variables_by_task):
     # ---- Global submit state ----
     submit_state, set_submit_state = mo.state(False)
 
     # ---- Collect all choices ----
     # variable_detailsa = [task_1_variable_details, task_2_variable_details, task_3_variable_details, task_4_variable_details]
-    all_choices = [reactive_dict[var]['getter'] for var in reactive_dict]
+    all_choices = [variables_by_task[tasknumber]['getter'][var]['state'] 
+                   for tasknumber 
+                   in variables_by_task 
+                   for var 
+                   in variables_by_task[tasknumber]['variables']
+                  ]
 
     # ---- Count included variables ----
     include_count = sum(1 for c in all_choices if c == 'include')
@@ -2293,23 +2065,13 @@ def wrapup_intro(mo, reactive_dict):
 
 
 @app.cell(hide_code=True)
-def wrapup_summary_table(
-    continue_to_final_check,
-    decision_label,
-    include_count,
-    mo,
-    reactive_dict,
-    variable_details,
-    variables_by_task,
-):
-    mo.stop(not continue_to_final_check())
-
+def wrapup_summary_table(include_count, mo, variables_by_task):
     variable_plural = "variable" if include_count == 1 else "variables"
 
     grouped_rows = {
         variables_by_task[task]['header']: [
-            (decision_label(reactive_dict[var]['getter']), 
-             variable_details[var]['title']) 
+            (variables_by_task[task]['getter'][var]['state'].title() if variables_by_task[task]['getter'][var]['state'] else "No Selection", 
+             var.title) 
             for var in variables_by_task[task]['variables']
         ]
         for task in variables_by_task
@@ -2342,10 +2104,8 @@ def wrapup_summary_table(
     return
 
 
-@app.cell(hide_code=True)
-def review_wave_buttons(continue_to_final_check, mo):
-    mo.stop(not continue_to_final_check())
-
+@app.cell
+def review_wave_buttons(mo):
     button_output = []
     for num in range(1, 5):
         temp_md = f"""<a href=#task_{num}>""""""{temp_button}</a>"""
@@ -2358,22 +2118,18 @@ def review_wave_buttons(continue_to_final_check, mo):
 
 
 @app.cell
-def _(continue_to_final_check, mo):
-    mo.stop(not continue_to_final_check())
+def final_feedback_divider(mo):
     mo.Html(f"""<hr style="border: 3px solid #4CAF50; margin-top:1rem; margin-bottom:1rem;">""")
     return
 
 
 @app.cell
-def _(
-    continue_to_final_feedback,
+def final_feedback(
     format_final_feedback,
     gather_final_feedback,
     mo,
     variables_by_task,
 ):
-    mo.stop(not continue_to_final_feedback())
-
     final_feedback_header = mo.Html(f"""<div style="text-align:center; color:#4CAF50; font-size:1.5rem; font-weight:bold; margin-bottom:1rem;">Final Feedback </div>""")
 
     final_output = []
@@ -2383,7 +2139,7 @@ def _(
         cor = []
         incor = []
         for var in variables_by_task[task]['variables']: 
-            cor, incor = gather_final_feedback(var, cor, incor)
+            cor, incor = gather_final_feedback(var, variables_by_task[task]['getter'], cor, incor)
         final_task_output = format_final_feedback(cor, incor)
         final_output.append(mo.accordion({local_header: final_task_output}))
 
@@ -2392,9 +2148,7 @@ def _(
 
 
 @app.cell
-def task_f(continue_to_final_feedback, mo):
-    mo.stop(not continue_to_final_feedback())
-
+def product_and_reflection(mo):
     product_textbox = mo.ui.text_area(label="Enter your product notes here", rows=8)
     learner_reflection_textbox = mo.ui.text_area(label="Please wriet your reflections here", rows=12)
 
@@ -2412,452 +2166,6 @@ def task_f(continue_to_final_feedback, mo):
         mo.Html("</div>"),
         mo.md("&nbsp;"),
     ])
-    return
-
-
-@app.cell(hide_code=True)
-def _():
-    # for numba in list(vardict.keys())[2:]: 
-    #     for item in vardict[numba]: 
-    #         print(f"""\t{item.name}: """+'{\n'+f"""\t\t'state': set_{item.name}_state,\n\t\t'initial': set_{item.name}_initial,\n\t\t'final': set_{item.name}_final,\n"""+'\t},')
-    return
-
-
-@app.cell(hide_code=True)
-def task_1_selections():
-    # task_1_display_output = [variable_selection_output(var) for var in variables_by_task[1]['variables']]
-
-    # mo.output.replace(
-    #     mo.vstack(task_1_display_output)
-    # )
-    return
-
-
-@app.cell(hide_code=True)
-def task_1_detailed_feedback():
-    # task_1_feedback = [generate_feedback(var) for var in variables_by_task[1]['variables']]
-
-    # content_detail_feedback = mo.vstack(task_1_feedback)
-
-    # mo.accordion({"Detailed Feedback": content_detail_feedback})
-    return
-
-
-@app.cell(hide_code=True)
-def _():
-
-
-
-
-    # #task 1 buttons
-    # #pell
-    # pell_incl = mo.ui.run_button(label="Include", kind='success',
-    #                              on_change=lambda _: set_pell_state('include'))
-    # pell_excl = mo.ui.run_button(label="Exclude", kind='danger',
-    #                              on_change=lambda _: set_pell_state('exclude'))
-    # pell_flag = mo.ui.run_button(label="Flag for Review", kind='warn', 
-    #                              on_change=lambda _: set_pell_state('flag'))
-
-
-    # #efc
-    # efc_incl = mo.ui.run_button(label="Include", kind='success', 
-    #                             on_change=lambda _: set_efc_state("include"))
-    # efc_excl = mo.ui.run_button(label="Exclude", kind='danger', 
-    #                             on_change=lambda _: set_efc_state("exclude"))
-    # efc_flag = mo.ui.run_button(label="Flag for Review", kind='warn', 
-    #                             on_change=lambda _: set_efc_state("flag"))
-
-    # #sai
-    # sai_incl = mo.ui.run_button(label="Include", kind='success', 
-    #                             on_change=lambda _: set_sai_state("include"))
-    # sai_excl = mo.ui.run_button(label="Exclude", kind='danger', 
-    #                             on_change=lambda _: set_sai_state("exclude"))
-    # sai_flag = mo.ui.run_button(label="Flag for Review", kind='warn', 
-    #                             on_change=lambda _: set_sai_state("flag"))
-
-    # #unmet_need
-    # unmet_incl = mo.ui.run_button(label="Include", kind='success', 
-    #                               on_change=lambda _: set_unmet_state("include"))
-    # unmet_excl = mo.ui.run_button(label="Exclude", kind='danger', 
-    #                               on_change=lambda _: set_unmet_state("exclude"))
-    # unmet_flag = mo.ui.run_button(label="Flag for Review", kind='warn', 
-    #                               on_change=lambda _: set_unmet_state("flag"))
-
-    # #merit_award_amount
-    # merit_incl = mo.ui.run_button(label="Include", kind='success',
-    #                               on_change=lambda _: set_merit_state("include"))
-    # merit_excl = mo.ui.run_button(label="Exclude", kind='danger', 
-    #                               on_change=lambda _: set_merit_state("exclude"))
-    # merit_flag = mo.ui.run_button(label="Flag for Review", kind='warn',
-    #                               on_change=lambda _: set_merit_state('flag'))
-
-
-    # #pell_plus
-    # pell_plus_incl = mo.ui.run_button(label="Include", kind='success',
-    #                                   on_change=lambda _: set_pell_plus_state("include"))
-    # pell_plus_excl = mo.ui.run_button(label="Exclude", kind='danger',
-    #                                   on_change=lambda _: set_pell_plus_state("exclude"))
-    # pell_plus_flag = mo.ui.run_button(label="Flag for Review", kind='warn', 
-    #                                   on_change=lambda _: set_pell_plus_state('flag'))
-
-
-    # #text areas
-    # pell_textbox = mo.ui.text_area(label=f"{textbox_text_boilerplate} Pell Grant selection", rows=4)
-    # efc_textbox = mo.ui.text_area(label=f"{textbox_text_boilerplate} EFC selection", rows=4)
-    # sai_textbox = mo.ui.text_area(label=f"{textbox_text_boilerplate} SAI selection", rows=4)
-    # unmet_textbox = mo.ui.text_area(label=f"{textbox_text_boilerplate} Unmet Need selection", rows=4)
-    # merit_textbox = mo.ui.text_area(label=f"{textbox_text_boilerplate} Merit Award selection", rows=4)
-    # pell_plus_textbox = mo.ui.text_area(label=f"{textbox_text_boilerplate} Pell Plus selection", rows=4)
-
-
-
-
-    # #buttons
-    # #button_labels
-
-    # #race
-    # race_incl = mo.ui.run_button(label=task_2_labels['include'], kind='success', on_change=lambda _: set_race_choice('include'))
-    # race_audit = mo.ui.run_button(label=task_2_labels['audit'], kind='warn', on_change=lambda _: set_race_choice('audit'))
-    # race_excl = mo.ui.run_button(label=task_2_labels['exclude'], kind='danger', on_change=lambda _: set_race_choice('exclude'))
-
-    # #gender
-    # gender_incl = mo.ui.run_button(label=task_2_labels['include'], kind='success', on_change=lambda _: set_gender_choice('include'))
-    # gender_audit = mo.ui.run_button(label=task_2_labels['audit'], kind='warn', on_change=lambda _: set_gender_choice('audit'))
-    # gender_excl = mo.ui.run_button(label=task_2_labels['exclude'], kind='danger', on_change=lambda _: set_gender_choice('exclude'))
-
-    # #age
-    # age_incl = mo.ui.run_button(label=task_2_labels['include'], kind='success', on_change=lambda _: set_age_choice('include'))
-    # age_audit = mo.ui.run_button(label=task_2_labels['audit'], kind='warn', on_change=lambda _: set_age_choice('audit'))
-    # age_excl = mo.ui.run_button(label=task_2_labels['exclude'], kind='danger', on_change=lambda _: set_age_choice('exclude'))
-
-    # #pronouns
-    # pronoun_incl = mo.ui.run_button(label=task_2_labels['include'], kind='success', on_change=lambda _: set_pronoun_choice('include'))
-    # pronoun_audit = mo.ui.run_button(label=task_2_labels['audit'], kind='warn', on_change=lambda _: set_pronoun_choice('audit'))
-    # pronoun_excl = mo.ui.run_button(label=task_2_labels['exclude'], kind='danger', on_change=lambda _: set_pronoun_choice('exclude'))
-
-    # #textboxes
-    # race_textbox = mo.ui.text_area(label=f"{textbox_text_boilerplate} Race selection", rows=4)
-    # gender_textbox = mo.ui.text_area(label=f"{textbox_text_boilerplate} Gender selection", rows=4)
-    # age_textbox = mo.ui.text_area(label=f"{textbox_text_boilerplate} Age selection", rows=4)
-    # pronoun_textbox = mo.ui.text_area(label=f"{textbox_text_boilerplate} Preferred Pronouns selection", rows=4)
-
-
-
-
-    # #buttons
-
-    # #labels
-
-    # #gpa
-    # gpa_incl = mo.ui.run_button(label=task_3_labels['include'], kind='success', on_change=lambda _: set_gpa_choice('include'))
-    # gpa_excl = mo.ui.run_button(label=task_3_labels['exclude'], kind='danger', on_change=lambda _: set_gpa_choice('exclude'))
-    # gpa_flag = mo.ui.run_button(label=task_3_labels['flag_impr'], kind='warn', on_change=lambda _: set_gpa_choice('flag_impr'))
-
-    # #test_scores
-    # scores_incl = mo.ui.run_button(label=task_3_labels['include'], kind='success', on_change=lambda _: set_scores_choice('include'))
-    # scores_excl = mo.ui.run_button(label=task_3_labels['exclude'], kind='danger', on_change=lambda _: set_scores_choice('exclude'))
-    # scores_flag = mo.ui.run_button(label=task_3_labels['flag_impr'], kind='warn', on_change=lambda _: set_scores_choice('flag_impr'))
-
-
-    # #midterm grades
-    # midterms_incl = mo.ui.run_button(label=task_3_labels['include'], kind='success', on_change=lambda _: set_midterms_choice('include'))
-    # midterms_excl = mo.ui.run_button(label=task_3_labels['exclude'], kind='danger', on_change=lambda _: set_midterms_choice('exclude'))
-    # midterms_flag = mo.ui.run_button(label=task_3_labels['flag_impr'], kind='warn', on_change=lambda _: set_midterms_choice('flag_impr'))
-
-    # #epr
-    # epr_incl = mo.ui.run_button(label=task_3_labels['include'], kind='success', on_change=lambda _: set_epr_choice('include'))
-    # epr_excl = mo.ui.run_button(label=task_3_labels['exclude'], kind='danger', on_change=lambda _: set_epr_choice('exclude'))
-    # epr_flag = mo.ui.run_button(label=task_3_labels['flag_impr'], kind='warn', on_change=lambda _: set_epr_choice('flag_impr'))
-
-    # #printer
-    # printer_incl = mo.ui.run_button(label=task_3_labels['include'], kind='success', on_change=lambda _: set_printer_choice('include'))
-    # printer_excl = mo.ui.run_button(label=task_3_labels['exclude'], kind='danger', on_change=lambda _: set_printer_choice('exclude'))
-    # printer_flag = mo.ui.run_button(label=task_3_labels['flag_impr'], kind='warn', on_change=lambda _: set_printer_choice('flag_impr'))
-
-    # #textboxes
-    # gpa_textbox = mo.ui.text_area(label=f"{textbox_text_boilerplate} High School GPA selection.")
-    # scores_textbox = mo.ui.text_area(label=f"{textbox_text_boilerplate} Test Scores selection.")
-    # midterms_textbox = mo.ui.text_area(label=f"{textbox_text_boilerplate} Midterm Grades selection.")
-    # epr_textbox = mo.ui.text_area(label=f"{textbox_text_boilerplate} Early Progress Reports selection.")
-    # printer_textbox = mo.ui.text_area(label=f"{textbox_text_boilerplate} Dorm Printer Usage selection.")
-
-
-
-    # #buttons
-    # #labels 
-
-    # #legacy_status
-    # legacy_incl = mo.ui.run_button(label=task_4_labels['include'], kind='success', on_change=lambda _: set_legacy_choice('include'))
-    # legacy_excl = mo.ui.run_button(label=task_4_labels['exclude'], kind='danger', on_change=lambda _: set_legacy_choice('exclude'))
-    # legacy_flag = mo.ui.run_button(label=task_4_labels['other'], kind='warn', on_change=lambda _: set_legacy_choice('flag_impr'))
-
-    # #student_athlete_status
-    # athlete_incl = mo.ui.run_button(label=task_4_labels['include'], kind='success', on_change=lambda _: set_athlete_choice('include'))
-    # athlete_excl = mo.ui.run_button(label=task_4_labels['exclude'], kind='danger', on_change=lambda _: set_athlete_choice('exclude'))
-    # athlete_flag = mo.ui.run_button(label=task_4_labels['other'], kind='warn', on_change=lambda _: set_athlete_choice('flag_impr'))
-
-    # #first_generation_student
-    # firstgen_incl = mo.ui.run_button(label=task_4_labels['include'], kind='success', on_change=lambda _: set_firstgen_choice('include'))
-    # firstgen_excl = mo.ui.run_button(label=task_4_labels['exclude'], kind='danger', on_change=lambda _: set_firstgen_choice('exclude'))
-    # firstgen_flag = mo.ui.run_button(label=task_4_labels['other'], kind='warn', on_change=lambda _: set_firstgen_choice('flag_impr'))
-
-    # #distance_from_home
-    # distance_incl = mo.ui.run_button(label=task_4_labels['include'], kind='success', on_change=lambda _: set_distance_choice('include'))
-    # distance_excl = mo.ui.run_button(label=task_4_labels['exclude'], kind='danger', on_change=lambda _: set_distance_choice('exclude'))
-    # distance_flag = mo.ui.run_button(label=task_4_labels['other'], kind='warn', on_change=lambda _: set_distance_choice('flag_impr'))
-
-    # #credits_after_add_drop
-    # credits_incl = mo.ui.run_button(label=task_4_labels['include'], kind='success', on_change=lambda _: set_credits_choice('include'))
-    # credits_excl = mo.ui.run_button(label=task_4_labels['exclude'], kind='danger', on_change=lambda _: set_credits_choice('exclude'))
-    # credits_flag = mo.ui.run_button(label=task_4_labels['other'], kind='warn', on_change=lambda _: set_credits_choice('flag_impr'))
-
-    # #live_on_campus_or_commute
-    # housing_incl = mo.ui.run_button(label=task_4_labels['include'], kind='success', on_change=lambda _: set_housing_choice('include'))
-    # housing_excl = mo.ui.run_button(label=task_4_labels['exclude'], kind='danger', on_change=lambda _: set_housing_choice('exclude'))
-    # housing_flag = mo.ui.run_button(label=task_4_labels['other'], kind='warn', on_change=lambda _: set_housing_choice('flag_impr'))
-
-    # #residency_in_state_out_of_state_international
-    # residency_incl = mo.ui.run_button(label=task_4_labels['include'], kind='success', on_change=lambda _: set_residency_choice('include'))
-    # residency_excl = mo.ui.run_button(label=task_4_labels['exclude'], kind='danger', on_change=lambda _: set_residency_choice('exclude'))
-    # residency_flag = mo.ui.run_button(label=task_4_labels['other'], kind='warn', on_change=lambda _: set_residency_choice('flag_impr'))
-
-    # #urban_rural_suburban_origin
-    # origins_incl = mo.ui.run_button(label=task_4_labels['include'], kind='success', on_change=lambda _: set_origins_choice('include'))
-    # origins_excl = mo.ui.run_button(label=task_4_labels['exclude'], kind='danger', on_change=lambda _: set_origins_choice('exclude'))
-    # origins_flag = mo.ui.run_button(label=task_4_labels['other'], kind='warn', on_change=lambda _: set_origins_choice('flag_impr'))
-
-    # #transfer_status
-    # transfer_incl = mo.ui.run_button(label=task_4_labels['include'], kind='success', on_change=lambda _: set_transfer_choice('include'))
-    # transfer_excl = mo.ui.run_button(label=task_4_labels['exclude'], kind='danger', on_change=lambda _: set_transfer_choice('exclude'))
-    # transfer_flag = mo.ui.run_button(label=task_4_labels['other'], kind='warn', on_change=lambda _: set_transfer_choice('flag_impr'))
-
-    # #extracurricular_involvement
-    # extracurricular_incl = mo.ui.run_button(label=task_4_labels['include'], kind='success', 
-    #                                         on_change=lambda _: set_extracurricular_choice('include'))
-    # extracurricular_excl = mo.ui.run_button(label=task_4_labels['exclude'], kind='danger', 
-    #                                         on_change=lambda _: set_extracurricular_choice('exclude'))
-    # extracurricular_flag = mo.ui.run_button(label=task_4_labels['other'], kind='warn', 
-    #                                         on_change=lambda _: set_extracurricular_choice('flag_impr'))
-
-    # #campus_wi_fi_gaming_network_participation
-    # wi_fi_incl = mo.ui.run_button(label=task_4_labels['include'], kind='success', on_change=lambda _: set_wi_fi_choice('include'))
-    # wi_fi_excl = mo.ui.run_button(label=task_4_labels['exclude'], kind='danger', on_change=lambda _: set_wi_fi_choice('exclude'))
-    # wi_fi_flag = mo.ui.run_button(label=task_4_labels['other'], kind='warn', on_change=lambda _: set_wi_fi_choice('flag_impr'))
-
-
-    # #textboxes
-    # legacy_textbox = mo.ui.text_area(label=f"{textbox_text_boilerplate} Legacy Status selection.")
-    # athlete_textbox = mo.ui.text_area(label=f"{textbox_text_boilerplate} Student Athlete Status selection.")
-    # firstgen_textbox = mo.ui.text_area(label=f"{textbox_text_boilerplate} First-Generation Status selection.")
-    # distance_textbox = mo.ui.text_area(label=f"{textbox_text_boilerplate} Distance From Home selection.")
-    # credits_textbox = mo.ui.text_area(label=f"{textbox_text_boilerplate} Credits After Add/Drop selection.")
-    # housing_textbox = mo.ui.text_area(label=f"{textbox_text_boilerplate} Living On Campus or Commuter selection.")
-    # residency_textbox = mo.ui.text_area(label=f"{textbox_text_boilerplate} Residency (In-State / Out-of-State / International) selection.")
-    # origins_textbox = mo.ui.text_area(label=f"{textbox_text_boilerplate} Urban / Rural / Suburban Origin selection")
-    # transfer_textbox = mo.ui.text_area(label=f"{textbox_text_boilerplate} Transfer Status selection.")
-    # extracurricular_textbox = mo.ui.text_area(label=f"{textbox_text_boilerplate} Extracurricular Involvement selection.")
-    # wi_fi_textbox = mo.ui.text_area(label=f"{textbox_text_boilerplate} Campus Wi-Fi Gaming Network Participation selection.")
-
-
-    # task_2_labels = {'include': 'Include As-Is', 'exclude': 'Exclude Entirely', 'audit': 'Keep for Bias-Audit Only'}
-    # task_3_labels = {'include': 'Include as-is', 'exclude': 'Exclude (too unreliable)', 'flag_impr': 'Flag for Data-Quality Improvement'}
-    # task_4_labels = {'include': 'Include as-is', 'exclude': 'Exclude (too unreliable)', 'other': 'Flag for Data-Quality Improvement'}
-    return
-
-
-@app.cell(hide_code=True)
-def reactive_dictionary():
-    # reactive_dict = {
-    #     'pell': {
-    #         'include': pell_incl,
-    #         'exclude': pell_excl,
-    #         'other': pell_flag,
-    #         'textbox': pell_textbox,
-    #         'getter': get_pell_state(),
-    #         'setter': set_pell_state
-    #     }, 
-    #     'efc': {
-    #         'include': efc_incl,
-    #         'exclude': efc_excl,
-    #         'other': efc_flag,
-    #         'textbox': efc_textbox,
-    #         'getter': get_efc_state(),
-    #     },
-    #     'sai': {
-    #         'include': sai_incl,
-    #         'exclude': sai_excl,
-    #         'other': sai_flag,
-    #         'textbox': sai_textbox,
-    #         'getter': get_sai_state(),
-    #     },
-    #     'unmet': {
-    #         'include': unmet_incl,
-    #         'exclude': unmet_excl,
-    #         'other': unmet_flag,
-    #         'textbox': unmet_textbox,
-    #         'getter': get_unmet_state(),
-    #     },
-    #     'merit': {
-    #         'include': merit_incl,
-    #         'exclude': merit_excl,
-    #         'other': merit_flag,
-    #         'textbox': merit_textbox,
-    #         'getter': get_merit_state(),
-    #     },
-    #     'pell_plus': {
-    #         'include': pell_plus_incl,
-    #         'exclude': pell_plus_excl,
-    #         'other': pell_plus_flag,
-    #         'textbox': pell_plus_textbox,
-    #         'getter': get_pell_plus_state(),
-    #     },
-    #     'race': {
-    #         'include': race_incl,
-    #         'exclude': race_excl,
-    #         'other': race_audit,
-    #         'textbox': race_textbox,
-    #         'getter': get_race_choice(),
-    #     }, 
-    #     'gender': {
-    #         'include': gender_incl,
-    #         'exclude': gender_excl,
-    #         'other': gender_audit,
-    #         'textbox': gender_textbox,
-    #         'getter': get_gender_choice(),
-    
-    #     },
-    #     'age': {
-    #         'include': age_incl,
-    #         'exclude': age_excl,
-    #         'other': age_audit,
-    #         'textbox': age_textbox,
-    #         'getter': get_age_choice(),
-        
-    #     },
-    #     'pronouns': {
-    #         'include': pronoun_incl,
-    #         'exclude': pronoun_excl,
-    #         'other': pronoun_audit,
-    #         'textbox': pronoun_textbox,
-    #         'getter': get_pronoun_choice(),      
-    #     },
-    #     "gpa": {
-    #         'include': gpa_incl,
-    #         'exclude': gpa_excl,
-    #         'other': gpa_flag,
-    #         'textbox': gpa_textbox,
-    #         'getter': get_gpa_choice(),
-
-    #     },
-    #     "scores": {
-    #         'include': scores_incl,
-    #         'exclude': scores_excl,
-    #         'other': scores_flag,
-    #         'textbox': scores_textbox,
-    #         'getter': get_scores_choice(),
-        
-    #     },
-    #     "midterms": {
-    #         'include': midterms_incl,
-    #         'exclude': midterms_excl,
-    #         'other': midterms_flag,
-    #         'textbox': midterms_textbox,
-    #         'getter': get_midterms_choice(),
-        
-    #     },
-    #     "epr": {
-    #         'include': epr_incl,
-    #         'exclude': epr_excl,
-    #         'other': epr_flag,
-    #         'textbox': epr_textbox,
-    #         'getter': get_epr_choice(),
-        
-    #     },
-    #     "printer": {
-    #         'include': printer_incl,
-    #         'exclude': printer_excl,
-    #         'other': printer_flag,
-    #         'textbox': printer_textbox,
-    #         'getter': get_printer_choice(),        
-    #     },
-    #     'legacy': {
-    #         'include': legacy_incl,
-    #         'exclude': legacy_excl,
-    #         'other': legacy_flag,
-    #         'textbox': legacy_textbox,
-    #         'getter': get_legacy_choice(),
-    #     }, 
-    #     'athlete': {
-    #         'include': athlete_incl,
-    #         'exclude': athlete_excl,
-    #         'other': athlete_flag,
-    #         'textbox': athlete_textbox,
-    #         'getter': get_athlete_choice(),
-    #     }, 
-    #     'firstgen': {
-    #         'include': firstgen_incl,
-    #         'exclude': firstgen_excl,
-    #         'other': firstgen_flag,
-    #         'textbox': firstgen_textbox,
-    #         'getter': get_firstgen_choice(),
-    #     }, 
-    #     'distance': {
-    #         'include': distance_incl,
-    #         'exclude': distance_excl,
-    #         'other': distance_flag,
-    #         'textbox': distance_textbox,
-    #         'getter': get_distance_choice(),
-    #     }, 
-    #     'credits': {
-    #         'include': credits_incl,
-    #         'exclude': credits_excl,
-    #         'other': credits_flag,
-    #         'textbox': credits_textbox,
-    #         'getter': get_credits_choice(),
-    #     }, 
-    #     'housing': {
-    #         'include': housing_incl,
-    #         'exclude': housing_excl,
-    #         'other': housing_flag,
-    #         'textbox': housing_textbox,
-    #         'getter': get_housing_choice(),
-    #     }, 
-    #     'residency': {
-    #         'include': residency_incl,
-    #         'exclude': residency_excl,
-    #         'other': residency_flag,
-    #         'textbox': residency_textbox,
-    #         'getter': get_residency_choice(),
-    #     }, 
-    #     'origins': {
-    #         'include': origins_incl,
-    #         'exclude': origins_excl,
-    #         'other': origins_flag,
-    #         'textbox': origins_textbox,
-    #         'getter': get_origins_choice(),
-    #     }, 
-    #     'transfer': {
-    #         'include': transfer_incl,
-    #         'exclude': transfer_excl,
-    #         'other': transfer_flag,
-    #         'textbox': transfer_textbox,
-    #         'getter': get_transfer_choice(),
-    #     }, 
-    #     'extracurricular': {
-    #         'include': extracurricular_incl,
-    #         'exclude': extracurricular_excl,
-    #         'other': extracurricular_flag,
-    #         'textbox': extracurricular_textbox,
-    #         'getter': get_extracurricular_choice(),
-    #     },
-    #     'wi_fi': {
-    #         'include': wi_fi_incl,
-    #         'exclude': wi_fi_excl,
-    #         'other': wi_fi_flag,
-    #         'textbox': wi_fi_textbox,
-    #         'getter': get_wi_fi_choice(),
-    #     },
-    # }
     return
 
 
